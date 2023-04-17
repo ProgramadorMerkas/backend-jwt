@@ -34,6 +34,20 @@ final class Aliados_merkasRepository
         return $aliados_merkas;
     }
 
+    public function find_by_usuario_id(int $usuario_id):object
+    {
+        $query = 'SELECT * FROM `aliados_merkas` WHERE `usuario_id` = :usuario_id';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam(':usuario_id', $aliausuario_id);
+        $statement->execute();
+        $aliados_merkas = $statement->fetchObject();
+        if (! $aliados_merkas) {
+            throw new Aliados_merkasException('Aliados_merkas not found.', 404);
+        }
+
+        return $aliados_merkas;
+    }
+
     public function getAll(): array
     {
         $query = 'SELECT * FROM `aliados_merkas` ORDER BY `aliado_merkas_id`';
@@ -45,7 +59,23 @@ final class Aliados_merkasRepository
 
     public function create(object $aliados_merkas): object
     {
-        $query = 'INSERT INTO `aliados_merkas` (`aliado_merkas_id`, `usuario_id`, `desarrollador_id`, `aliado_merkas_id_padre`, `aliado_merkas_rango_id`, `aliado_merkas_rango_efectivo`, `aliado_merkas_rango_credito`, `aliado_merkas_fecha_registro`, `aliado_merkas_nit`, `aliado_merkas_dv`, `aliado_merkas_estado`, `aliado_merkas_nombre`, `aliado_merkas_descripcion`, `aliado_merkas_website`, `aliado_merkas_facebook`, `aliado_merkas_twitter`, `aliado_merkas_youtube`, `aliado_merkas_instagram`, `aliado_merkas_regimen_contributivo`, `aliado_merkas_tipo`, `aliado_merkas_rep_legal_nombre`, `aliado_merkas_rep_legal_apellido`, `aliado_merkas_rep_legal_genero`, `aliado_merkas_rep_legal_tipo_documento`, `aliado_merkas_rep_legal_numero_documento`, `aliado_merkas_rep_legal_correo`, `aliado_merkas_rep_legal_telefono`, `aliado_merkas_rep_legal_cargo`, `aliado_merkas_rep_legal_direccion`, `municipio_id`, `aliado_merkas_ruta_img_portada`) VALUES ( :usuario_id, :desarrollador_id, :aliado_merkas_id_padre, :aliado_merkas_rango_id, :aliado_merkas_rango_efectivo, :aliado_merkas_rango_credito, :aliado_merkas_fecha_registro, :aliado_merkas_nit, :aliado_merkas_dv, :aliado_merkas_estado, :aliado_merkas_nombre, :aliado_merkas_descripcion, :aliado_merkas_website, :aliado_merkas_facebook, :aliado_merkas_twitter, :aliado_merkas_youtube, :aliado_merkas_instagram, :aliado_merkas_regimen_contributivo, :aliado_merkas_tipo, :aliado_merkas_rep_legal_nombre, :aliado_merkas_rep_legal_apellido, :aliado_merkas_rep_legal_genero, :aliado_merkas_rep_legal_tipo_documento, :aliado_merkas_rep_legal_numero_documento, :aliado_merkas_rep_legal_correo, :aliado_merkas_rep_legal_telefono, :aliado_merkas_rep_legal_cargo, :aliado_merkas_rep_legal_direccion, :municipio_id, :aliado_merkas_ruta_img_portada)';
+        $query = 'INSERT INTO `aliados_merkas` 
+        (`aliado_merkas_id`, `usuario_id`, `desarrollador_id`, `aliado_merkas_id_padre`, `aliado_merkas_rango_id`, 
+        `aliado_merkas_rango_efectivo`, `aliado_merkas_rango_credito`, `aliado_merkas_fecha_registro`, `aliado_merkas_nit`, 
+        `aliado_merkas_dv`, `aliado_merkas_estado`, `aliado_merkas_nombre`, `aliado_merkas_descripcion`, `aliado_merkas_website`, 
+        `aliado_merkas_facebook`, `aliado_merkas_twitter`, `aliado_merkas_youtube`, `aliado_merkas_instagram`, 
+        `aliado_merkas_regimen_contributivo`, `aliado_merkas_tipo`, `aliado_merkas_rep_legal_nombre`,
+         `aliado_merkas_rep_legal_apellido`, `aliado_merkas_rep_legal_genero`, `aliado_merkas_rep_legal_tipo_documento`, 
+         `aliado_merkas_rep_legal_numero_documento`, `aliado_merkas_rep_legal_correo`, `aliado_merkas_rep_legal_telefono`,
+          `aliado_merkas_rep_legal_cargo`, `aliado_merkas_rep_legal_direccion`, `municipio_id`, `aliado_merkas_ruta_img_portada`) 
+          VALUES ( :usuario_id, :desarrollador_id, :aliado_merkas_id_padre, :aliado_merkas_rango_id, :aliado_merkas_rango_efectivo, 
+          :aliado_merkas_rango_credito, :aliado_merkas_fecha_registro, :aliado_merkas_nit, :aliado_merkas_dv, :aliado_merkas_estado, 
+          :aliado_merkas_nombre, :aliado_merkas_descripcion, :aliado_merkas_website, :aliado_merkas_facebook, :aliado_merkas_twitter, 
+          :aliado_merkas_youtube, :aliado_merkas_instagram, :aliado_merkas_regimen_contributivo, :aliado_merkas_tipo, 
+          :aliado_merkas_rep_legal_nombre, :aliado_merkas_rep_legal_apellido, :aliado_merkas_rep_legal_genero, 
+          :aliado_merkas_rep_legal_tipo_documento, :aliado_merkas_rep_legal_numero_documento, :aliado_merkas_rep_legal_correo, 
+          :aliado_merkas_rep_legal_telefono, :aliado_merkas_rep_legal_cargo, :aliado_merkas_rep_legal_direccion, :municipio_id, 
+          :aliado_merkas_ruta_img_portada)';
         $statement = $this->getDb()->prepare($query); 
         $statement->bindParam('usuario_id', $aliados_merkas->usuario_id);
         $statement->bindParam('desarrollador_id', $aliados_merkas->desarrollador_id);
@@ -82,6 +112,67 @@ final class Aliados_merkasRepository
 
         return $this->checkAndGet((int) $this->getDb()->lastInsertId());
     }
+
+    //Edwin egue
+    public function create_data_1(object $aliados_merkas): object
+    {   
+        $query = 'INSERT INTO `aliados_merkas` 
+        (
+        `usuario_id`,
+        `desarrollador_id`,
+        `aliado_merkas_id_padre`, 
+        `aliado_merkas_rango_efectivo`, 
+        `aliado_merkas_rango_credito`, 
+        `aliado_merkas_fecha_registro`, 
+        `aliado_merkas_nit`, 
+        `aliado_merkas_dv`, 
+        `aliado_merkas_estado`, 
+        `aliado_merkas_nombre`, 
+        `aliado_merkas_regimen_contributivo`, 
+        `aliado_merkas_tipo`, 
+        `aliado_merkas_rep_legal_nombre`, 
+        `aliado_merkas_rep_legal_apellido`)
+        VALUES ( 
+            :usuario_id, 
+            :desarrollador_id,
+            :aliado_merkas_id_padre,
+            :aliado_merkas_rango_efectivo,             
+            :aliado_merkas_rango_credito, 
+            :aliado_merkas_fecha_registro, 
+            :aliado_merkas_nit, 
+            :aliado_merkas_dv, 
+            :aliado_merkas_estado, 
+            :aliado_merkas_nombre,  
+            :aliado_merkas_regimen_contributivo, 
+            :aliado_merkas_tipo, 
+            :aliado_merkas_rep_legal_nombre, 
+            :aliado_merkas_rep_legal_apellido)';
+
+        $statement = $this->getDb()->prepare($query); 
+        $cero = 0;
+        $date = date("Y-m-d");
+        $statement->bindParam(':usuario_id' , $cero);
+        $statement->bindParam(':aliado_merkas_rango_efectivo' , $aliados_merkas->effective);
+        $statement->bindParam(':aliado_merkas_rango_credito' , $aliados_merkas->credit);
+        $statement->bindParam(':aliado_merkas_fecha_registro' , $date);
+        $statement->bindParam(':aliado_merkas_nit' , $aliados_merkas->nit);
+        $statement->bindParam(':aliado_merkas_dv' , $aliados_merkas->dv);
+        $statement->bindParam(':aliado_merkas_estado' , $cero);
+        $statement->bindParam(':aliado_merkas_nombre' , $aliados_merkas->registeredName);
+        $statement->bindParam(':aliado_merkas_regimen_contributivo' , $aliados_merkas->typeOfTaxpayer);
+        $statement->bindParam(':aliado_merkas_tipo' , $aliados_merkas->typeOfTrade);
+        $statement->bindParam(':aliado_merkas_rep_legal_nombre' , $aliados_merkas->nameLegal);
+        $statement->bindParam(':aliado_merkas_rep_legal_apellido' , $aliados_merkas->surnamesLegal);
+        $statement->bindParam(':desarrollador_id' , $aliados_merkas->desarrollador_id);
+        $statement->bindParam(':aliado_merkas_id_padre' , $aliados_merkas->aliado_merkas_id_padre);
+
+
+        $statement->execute();
+
+        return $this->checkAndGet((int) $this->getDb()->lastInsertId());
+      
+
+}
 
     public function update(object $aliados_merkas, object $data): object
     {

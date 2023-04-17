@@ -2,22 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Aliados_merkas;
+namespace App\Controller\Municipios;
 
 use App\CustomResponse as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Fig\Http\Message\StatusCodeInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 final class Create extends Base
 {
     public function __invoke(Request $request, Response $response): Response
     {
         $input = (array) $request->getParsedBody();
+        $municipios = $this->getMunicipiosService()->create($input);
 
-        $aliados_merkas = $this->getAliados_merkasService()->create($input);
-          
-      
-
-        return $response->withJson($aliados_merkas, StatusCodeInterface::STATUS_CREATED);
+        return $response->withJson($municipios, StatusCodeInterface::STATUS_CREATED);
     }
 }

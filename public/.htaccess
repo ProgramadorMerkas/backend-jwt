@@ -1,5 +1,6 @@
 #Motor de reescritura encendido
-RewriteBase /api-merkas/public
+#RewriteBase /api-merkas/public
+RewriteBase /v2/public
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-Regla de reescritura ^ index.php [QSA,L]
+RewriteRule ^ index.php [QSA,L]

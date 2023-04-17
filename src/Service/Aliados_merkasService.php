@@ -6,14 +6,24 @@ namespace App\Service;
 
 use App\Exception\Aliados_merkasException;
 use App\Repository\Aliados_merkasRepository;
+use App\Repository\UsuariosRepository;
+use App\Repository\DesarrolladoresRepository;
 
 final class Aliados_merkasService
 {
-    private Aliados_merkasRepository $aliados_merkasRepository;
+    private Aliados_merkasRepository $aliados_merkasRepository; 
 
-    public function __construct(Aliados_merkasRepository $aliados_merkasRepository)
+    private UsuariosRepository $usuariosRepository;
+
+    private DesarrolladoresRepository $desarrolladoresRepository;
+
+    public function __construct(Aliados_merkasRepository $aliados_merkasRepository  , UsuariosRepository $usuariosRepository , DesarrolladoresRepository $desarrolladoresRepository)
     {
         $this->aliados_merkasRepository = $aliados_merkasRepository;
+        
+        $this->usuariosRepository = $usuariosRepository;
+
+        $this->desarrolladoresRepository = $desarrolladoresRepository;
     }
 
     public function checkAndGet(int $aliados_merkasId): object
@@ -34,8 +44,59 @@ final class Aliados_merkasService
     public function create(array $input): object
     {
         $aliados_merkas = json_decode((string) json_encode($input), false);
+        //agregar campo desarrollador_id , aliado_merkas_id_padre
+        $aliados_merkas->desarrollador_id = 0;
 
-        return $this->aliados_merkasRepository->create($aliados_merkas);
+        $aliados_merkas->aliado_merkas_id_padre = 0;
+        //validar si existe el valor
+        if($aliados_merkas->referido == 0)
+        {
+            //buscar el referido con el codigo q8i67yz865
+            $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) "q8i67yz865");
+
+            $desarrollador = $this->desarrolladoresRepository->find_by_usuario_id($usuario->usuario_id);
+             
+            $aliados_merkas->desarrollador_id = $desarrollador->desarrollador_id;
+            
+        }else{
+
+            $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) $aliados_merkas->referido);
+
+            if(is_null($usuario))
+            {
+                //si el código no retorna un usuario entonces se asigna a merkas global
+                $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) "q8i67yz865");
+
+                $desarrollador = $this->desarrolladoresRepository->find_by_usuario_id($usuario->usuario_id);
+             
+                $aliados_merkas->desarrollador_id = $desarrollador->desarrollador_id;
+            
+            }else{
+                 //dado el caso que si retorne se valida si es comercio o desarrollador
+                 if($usuario->usuario_rol_principal == "DESARROLLADOR MASTER")
+                 {
+                    //en caso de ser desarrollador, tiene que buscar el id del desarrolllador
+                    $desarrollador = $this->desarrolladoresRepository->find_by_usuario_id($usuario->usuario_id);
+
+                    if(!is_null($desarrollador))
+                    {
+                        $aliados_merkas->desarrollador_id = $desarrollador->desarrollador_id;
+
+                    }
+
+                 }else if($usuario->usuario_rol_principal == "ALIADO COMERCIAL")
+                 {
+                    //buscar el id del aliado comercial
+                    $aliado = $this->aliados_merkasRespository->find_by_usuario_id($usuario->usuario_id);
+                    
+                    if(!is_null($aliado))
+                    {
+                        $aliados_merkas->aliado_merkas_id_padre = $aliado->aliado_merkas_id;
+                    }
+                 }
+            }
+        }
+        return $this->aliados_merkasRepository->create_data_1($aliados_merkas);
     }
 
     public function update(array $input, int $aliados_merkasId): object

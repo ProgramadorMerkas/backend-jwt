@@ -39,4 +39,22 @@ class CustomResponse extends ResponseBase
         }
         return $responseWithJson;
     }
+
+    public function is400Response($data , int $status = 400 , int $encodingOptions = 0):self
+    {
+        $json = json_encode($data, $encodingOptions);
+        
+        // Ensure that the json encoding passed successfully
+        if ($json === false) {
+            throw new \RuntimeException(json_last_error_msg(), json_last_error());
+        }
+
+        $this->getBody()->write($json);
+
+        $responseWithJson = $this->withHeader('Content-Type', 'application/json;charset=utf-8');
+        if (isset($status)) {
+            return $responseWithJson->withStatus($status);
+        }
+        return $responseWithJson;
+    }
 }
