@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-use App\ValidarHeaderMiddleware;
+declare(strict_types=1); 
 
 #$app->get('/', 'App\Controller\Home:getHelp');
-#$app->get('/status', 'App\Controller\Home:getStatus');
+$app->get('/status', 'App\Controller\Home:getStatus');
 
 #$app->get('/aliados_merkas', App\Controller\Aliados_merkas\GetAll::class);
 $app->post('/aliados_merkas', App\Controller\Aliados_merkas\Create::class);

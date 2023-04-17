@@ -13,6 +13,14 @@ return static function (App $app, Closure $customErrorHandler): void {
 
     //validacion de middleware
     $app->add(function ($request , $handler){
+
+        if ($request->getAttribute('status', false)) {
+            // Si el atributo está presente y es verdadero, salta la validación del token y pasa al siguiente middleware
+            $response = $handler->handle($request);
+
+            return $response;
+        }
+        
         if (!$request->hasHeader('x-token')) {
 
             throw new HttpBadRequestException($request, "token no encontrado");
