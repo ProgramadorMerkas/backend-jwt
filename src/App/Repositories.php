@@ -29,3 +29,7 @@ $container['desarrolladores_repository'] = static function (Pimple\Container $co
 $container['aliados_merkas_rangos_repository'] = static function (Pimple\Container $container): App\Repository\Aliados_merkas_rangosRepository {
     return new App\Repository\Aliados_merkas_rangosRepository($container['db']);
 };
+
+$container['aliados_merkas_categorias_relacion_repository'] = static function (Pimple\Container $container): App\Repository\Aliados_merkas_categorias_relacionRepository {
+    return new App\Repository\Aliados_merkas_categorias_relacionRepository($container['db']);
+};

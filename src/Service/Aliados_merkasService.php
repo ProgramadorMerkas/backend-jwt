@@ -8,6 +8,7 @@ use App\Exception\Aliados_merkasException;
 use App\Repository\Aliados_merkasRepository;
 use App\Repository\UsuariosRepository;
 use App\Repository\DesarrolladoresRepository;
+use App\Repository\Aliados_merkas_categorias_relacionRepository;
 
 final class Aliados_merkasService
 {
@@ -17,13 +18,20 @@ final class Aliados_merkasService
 
     private DesarrolladoresRepository $desarrolladoresRepository;
 
-    public function __construct(Aliados_merkasRepository $aliados_merkasRepository  , UsuariosRepository $usuariosRepository , DesarrolladoresRepository $desarrolladoresRepository)
+    private Aliados_merkas_categorias_relacionRepository $categoria_relacionRepository;
+
+    public function __construct(Aliados_merkasRepository $aliados_merkasRepository  , 
+    UsuariosRepository $usuariosRepository , 
+    DesarrolladoresRepository $desarrolladoresRepository,
+    Aliados_merkas_categorias_relacionRepository $categoria_relacionRepository)
     {
         $this->aliados_merkasRepository = $aliados_merkasRepository;
         
         $this->usuariosRepository = $usuariosRepository;
 
         $this->desarrolladoresRepository = $desarrolladoresRepository;
+
+        $this->categoria_relacionRepository = $categoria_relacionRepository;
     }
 
     public function checkAndGet(int $aliados_merkasId): object
@@ -96,7 +104,14 @@ final class Aliados_merkasService
                  }
             }
         }
-        return $this->aliados_merkasRepository->create_data_1($aliados_merkas);
+
+        $aliadoCreated =  $this->aliados_merkasRepository->create_data_1($aliados_merkas);
+        //guardar la categoria
+        $categoria = ["categoria" =>$aliados_merkas->category  , "aliado_merkas_id" => $aliadoCreated->aliado_merkas_id];
+
+        $saveCategoriaRelation = $this->categoria_relacionRepository->created_data_1($categoria);
+
+        return $aliadoCreated->aliado_merkas_id;
     }
 
     public function update(array $input, int $aliados_merkasId): object

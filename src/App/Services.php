@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 $container['aliados_merkas_service'] = static function (Pimple\Container $container): App\Service\Aliados_merkasService {
-    return new App\Service\Aliados_merkasService($container['aliados_merkas_repository'],$container['usuarios_repository'], $container['desarrolladores_repository']);
+    return new App\Service\Aliados_merkasService($container['aliados_merkas_repository'],
+    $container['usuarios_repository'], $container['desarrolladores_repository'] , $container['aliados_merkas_categorias_relacion_repository']);
 };
 
 $container['usuarios_service'] = static function (Pimple\Container $container): App\Service\UsuariosService {
@@ -28,4 +29,8 @@ $container['desarrolladores_service'] = static function (Pimple\Container $conta
 
 $container['aliados_merkas_rangos_service'] = static function (Pimple\Container $container): App\Service\Aliados_merkas_rangosService {
     return new App\Service\Aliados_merkas_rangosService($container['aliados_merkas_rangos_repository']);
+};
+
+$container['aliados_merkas_categorias_relacion_service'] = static function (Pimple\Container $container): App\Service\Aliados_merkas_categorias_relacionService {
+    return new App\Service\Aliados_merkas_categorias_relacionService($container['aliados_merkas_categorias_relacion_repository']);
 };
