@@ -8,7 +8,7 @@ $app->get('/status', 'App\Controller\Home:getStatus');
 #$app->get('/aliados_merkas', App\Controller\Aliados_merkas\GetAll::class);
 $app->post('/aliados_merkas', App\Controller\Aliados_merkas\Create::class);
 #$app->get('/aliados_merkas/{id}', App\Controller\Aliados_merkas\GetOne::class);
-#$app->put('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Update::class);
+$app->put('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Update::class);
 #$app->delete('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Delete::class);
 
 #$app->get('/usuarios', App\Controller\Usuarios\GetAll::class);
@@ -52,3 +52,9 @@ $app->post('/aliados_merkas_categorias_relacion', App\Controller\Aliados_merkas_
 $app->get('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\GetOne::class);
 $app->put('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\Update::class);
 $app->delete('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\Delete::class);
+
+$app->get('/aliados_merkas_sucursales', App\Controller\Aliados_merkas_sucursales\GetAll::class);
+$app->post('/aliados_merkas_sucursales', App\Controller\Aliados_merkas_sucursales\Create::class);
+$app->get('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\GetOne::class);
+$app->put('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\Update::class);
+$app->delete('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\Delete::class);

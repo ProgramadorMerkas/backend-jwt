@@ -33,3 +33,7 @@ $container['aliados_merkas_rangos_repository'] = static function (Pimple\Contain
 $container['aliados_merkas_categorias_relacion_repository'] = static function (Pimple\Container $container): App\Repository\Aliados_merkas_categorias_relacionRepository {
     return new App\Repository\Aliados_merkas_categorias_relacionRepository($container['db']);
 };
+
+$container['aliados_merkas_sucursales_repository'] = static function (Pimple\Container $container): App\Repository\Aliados_merkas_sucursalesRepository {
+    return new App\Repository\Aliados_merkas_sucursalesRepository($container['db']);
+};
