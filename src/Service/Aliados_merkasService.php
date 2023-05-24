@@ -56,7 +56,7 @@ final class Aliados_merkasService
         return $this->checkAndGet($aliados_merkasId);
     }
 
-    public function create(array $input): object
+    public function create(array $input): int
     {
         $aliados_merkas = json_decode((string) json_encode($input), false);
         //agregar campo desarrollador_id , aliado_merkas_id_padre
@@ -160,4 +160,17 @@ final class Aliados_merkasService
         $this->checkAndGet($aliados_merkasId);
         $this->aliados_merkasRepository->delete($aliados_merkasId);
     }
+
+
+    /***almacenar la imagen de portada del aliado merkas */
+
+    public function updatePortada(int $aliado_merkas_id , $file):string
+    {
+        //consultar el aliado recibido
+        $aliado_merkas = $this->checkAndGet($aliado_merkas_id);
+        $carpeta = uniqid();
+        $path =  "/home/programador/Documentos/assets/media/users/";
+        return $path;
+    }
+
 }

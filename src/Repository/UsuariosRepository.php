@@ -20,7 +20,7 @@ final class UsuariosRepository
 
     public function checkAndGet(int $usuariosId): object
     {
-        $query = 'SELECT * FROM `usuarios` WHERE `id` = :id';
+        $query = 'SELECT * FROM `usuarios` WHERE `usuario_id` = :id';
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('id', $usuariosId);
         $statement->execute();

@@ -20,7 +20,7 @@ final class Aliados_merkas_categorias_relacionRepository
 
     public function checkAndGet(int $aliados_merkas_categorias_relacionId): object
     {
-        $query = 'SELECT * FROM `aliados_merkas_categorias_relacion` WHERE `id` = :id';
+        $query = 'SELECT * FROM `aliados_merkas_categorias_relacion` WHERE `aliados_merkas_categoria_relacion_id` = :id';
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('id', $aliados_merkas_categorias_relacionId);
         $statement->execute();
