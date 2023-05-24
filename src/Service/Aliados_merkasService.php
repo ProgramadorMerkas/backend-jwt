@@ -56,6 +56,12 @@ final class Aliados_merkasService
         return $this->checkAndGet($aliados_merkasId);
     }
 
+    /**validar si existe el nit */
+    public function validateNit($data)
+    {
+       // $this->usuariosRepo
+    }
+
     public function create(array $input): int
     {
         $aliados_merkas = json_decode((string) json_encode($input), false);
@@ -63,6 +69,7 @@ final class Aliados_merkasService
         $aliados_merkas->desarrollador_id = 0;
 
         $aliados_merkas->aliado_merkas_id_padre = 0;
+
         //validar si existe el valor
         if($aliados_merkas->referido == 0)
         {
@@ -164,13 +171,47 @@ final class Aliados_merkasService
 
     /***almacenar la imagen de portada del aliado merkas */
 
-    public function updatePortada(int $aliado_merkas_id , $file):string
+    public function updatePortada(int $aliado_merkas_id , $file):object
     {
         //consultar el aliado recibido
         $aliado_merkas = $this->checkAndGet($aliado_merkas_id);
         $carpeta = uniqid();
-        $path =  "/home/programador/Documentos/assets/media/users/";
-        return $path;
+        $path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
+        //validamos que la carpeta este creda
+        if(!is_dir($path))
+        {
+            mkdir($path , 0777, true); //creamos la carpeta
+        }
+        $extension = pathinfo($file->getClientFilename() , PATHINFO_EXTENSION);
+
+        $basename = bin2hex(random_bytes(8));
+
+        $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+        $file->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
+        //actualizar en base de datos
+        $aliado_merkas->aliado_merkas_ruta_img_portada = $path."/".$filename;
+
+        
+       // $this->
+        return $this->aliados_merkasRepository->update($aliado_merkas);
+    }
+
+
+    public function updateAliado($data , $id):object
+    {
+        $aliado = $this->checkAndGet($id);         
+        $aliado->aliado_merkas_rango_efectivo = $data->effective; 
+        $aliado->aliado_merkas_rango_credito =  $data->credit;
+        $aliado->aliado_merkas_nit =   $data->nit ;
+        $aliado->aliado_merkas_dv =  $data->dv ; 
+        $aliado->aliado_merkas_nombre =  $data->registeredName ;
+        $aliado->aliado_merkas_regimen_contributivo =   $data->typeOfTaxpayer;
+        $aliado->aliado_merkas_tipo =  $data->typeOfTrade;
+        $aliado->aliado_merkas_rep_legal_nombre =  $data->nameLegal;
+        $aliado->aliado_merkas_rep_legal_apellido =  $data->surnamesLegal;  
+
+        return $this->aliados_merkasRepository->update($aliado);
     }
 
 }

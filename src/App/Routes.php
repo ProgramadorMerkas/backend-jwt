@@ -9,6 +9,9 @@ $app->get('/status', 'App\Controller\Home:getStatus');
 $app->post('/aliados_merkas', App\Controller\Aliados_merkas\Create::class);
 #$app->get('/aliados_merkas/{id}', App\Controller\Aliados_merkas\GetOne::class);
 $app->put('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Update::class);
+
+$app->put('/aliados_merkas/edit/{id}' , App\Controller\Aliados_merkas\UpdateAliado::class);
+
 $app->post('/aliados_merkas/img' , App\Controller\Aliados_merkas\UpdateImages::class);
 #$app->delete('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Delete::class);
 
