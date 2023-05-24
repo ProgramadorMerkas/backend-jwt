@@ -59,12 +59,21 @@ final class Aliados_merkasService
     /**validar si existe el nit */
     public function validateNit($data)
     {
-       // $this->usuariosRepo
+        
+       return  $this->aliados_merkasRepository->findByNit((string) $data->nit);
+
+
     }
 
     public function create(array $input): int
     {
         $aliados_merkas = json_decode((string) json_encode($input), false);
+
+        //validar si ya existe
+        if($this->validateNit($aliados_merkas))
+        {
+              throw new Aliados_merkasException('El nit usado ya existe', 400);
+        }
         //agregar campo desarrollador_id , aliado_merkas_id_padre
         $aliados_merkas->desarrollador_id = 0;
 
@@ -176,7 +185,8 @@ final class Aliados_merkasService
         //consultar el aliado recibido
         $aliado_merkas = $this->checkAndGet($aliado_merkas_id);
         $carpeta = uniqid();
-        $path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
+        #$path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
+        $path = "C:/Works/Merkas/assets/media/users/".$carpeta;
         //validamos que la carpeta este creda
         if(!is_dir($path))
         {
@@ -188,7 +198,7 @@ final class Aliados_merkasService
 
         $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-        $file->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
+        $file->moveTo("C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename);
         //actualizar en base de datos
         $aliado_merkas->aliado_merkas_ruta_img_portada = $path."/".$filename;
 

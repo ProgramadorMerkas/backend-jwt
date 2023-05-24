@@ -51,14 +51,14 @@ $app->get('/aliados_merkas_rangos', App\Controller\Aliados_merkas_rangos\GetAll:
 #$app->put('/aliados_merkas_rangos/{id}', App\Controller\Aliados_merkas_rangos\Update::class);
 #$app->delete('/aliados_merkas_rangos/{id}', App\Controller\Aliados_merkas_rangos\Delete::class);
 
-$app->get('/aliados_merkas_categorias_relacion', App\Controller\Aliados_merkas_categorias_relacion\GetAll::class);
-$app->post('/aliados_merkas_categorias_relacion', App\Controller\Aliados_merkas_categorias_relacion\Create::class);
-$app->get('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\GetOne::class);
-$app->put('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\Update::class);
-$app->delete('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\Delete::class);
+#$app->get('/aliados_merkas_categorias_relacion', App\Controller\Aliados_merkas_categorias_relacion\GetAll::class);
+#$app->post('/aliados_merkas_categorias_relacion', App\Controller\Aliados_merkas_categorias_relacion\Create::class);
+#$app->get('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\GetOne::class);
+#$app->put('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\Update::class);
+#$app->delete('/aliados_merkas_categorias_relacion/{id}', App\Controller\Aliados_merkas_categorias_relacion\Delete::class);
 
-$app->get('/aliados_merkas_sucursales', App\Controller\Aliados_merkas_sucursales\GetAll::class);
-$app->post('/aliados_merkas_sucursales', App\Controller\Aliados_merkas_sucursales\Create::class);
-$app->get('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\GetOne::class);
+#$app->get('/aliados_merkas_sucursales', App\Controller\Aliados_merkas_sucursales\GetAll::class);
+#$app->post('/aliados_merkas_sucursales', App\Controller\Aliados_merkas_sucursales\Create::class);
+#$app->get('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\GetOne::class);
 $app->put('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\Update::class);
-$app->delete('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\Delete::class);
+#$app->delete('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\Delete::class);

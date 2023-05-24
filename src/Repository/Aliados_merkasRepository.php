@@ -34,6 +34,22 @@ final class Aliados_merkasRepository
         return $aliados_merkas;
     }
 
+    //buscar por nit
+    public function findByNit(string $nit)
+    {
+        $query = 'SELECT * FROM `aliados_merkas` WHERE `aliado_merkas_nit` = :nit';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('nit', $nit);
+        $statement->execute();
+        $aliados_merkas = $statement->fetchObject();
+        if (! $aliados_merkas) {
+             
+            return false;
+        }
+
+        return true;
+    }
+
     public function find_by_usuario_id(int $usuario_id):object
     {
         $query = 'SELECT * FROM `aliados_merkas` WHERE `usuario_id` = :usuario_id';
