@@ -76,9 +76,9 @@ final class Aliados_merkas_sucursalesRepository
         return $this->checkAndGet((int) $this->getDb()->lastInsertId());
     }
 
-    public function update(object $aliados_merkas_sucursales, object $data): object
+    public function update(object $aliados_merkas_sucursales ): object
     {
-        if (isset($data->aliado_merkas_sucursal_id)) {
+        /*if (isset($data->aliado_merkas_sucursal_id)) {
             $aliados_merkas_sucursales->aliado_merkas_sucursal_id = $data->aliado_merkas_sucursal_id;
         }
         if (isset($data->aliado_merkas_id)) {
@@ -131,11 +131,29 @@ final class Aliados_merkas_sucursalesRepository
         }
         if (isset($data->aliado_merkas_sucursal_domicilio)) {
             $aliados_merkas_sucursales->aliado_merkas_sucursal_domicilio = $data->aliado_merkas_sucursal_domicilio;
-        }
+        }*/
 
-        $query = 'UPDATE `aliados_merkas_sucursales` SET `aliado_merkas_sucursal_id` = :aliado_merkas_sucursal_id, `aliado_merkas_id` = :aliado_merkas_id, `aliado_merkas_sucursal_fecha_registro` = :aliado_merkas_sucursal_fecha_registro, `aliado_merkas_sucursal_principal` = :aliado_merkas_sucursal_principal, `aliado_merkas_sucursal_correo` = :aliado_merkas_sucursal_correo, `aliado_merkas_sucursal_direccion` = :aliado_merkas_sucursal_direccion, `municipio_id` = :municipio_id, `aliado_merkas_sucursal_latitud` = :aliado_merkas_sucursal_latitud, `aliado_merkas_sucursal_longitud` = :aliado_merkas_sucursal_longitud, `aliado_merkas_sucursal_horario_lunes_inicio` = :aliado_merkas_sucursal_horario_lunes_inicio, `aliado_merkas_sucursal_horario_lunes_fin` = :aliado_merkas_sucursal_horario_lunes_fin, `aliado_merkas_sucursal_horario_sabado_inicio` = :aliado_merkas_sucursal_horario_sabado_inicio, `aliado_merkas_sucursal_horario_sabado_fin` = :aliado_merkas_sucursal_horario_sabado_fin, `aliado_merkas_sucursal_horario_festivos_inicio` = :aliado_merkas_sucursal_horario_festivos_inicio, `aliado_merkas_sucursal_horario_festivos_fin` = :aliado_merkas_sucursal_horario_festivos_fin, `aliado_merkas_sucursal_telefono` = :aliado_merkas_sucursal_telefono, `aliado_merkas_sucursal_whatssap` = :aliado_merkas_sucursal_whatssap, `aliado_merkas_sucursal_domicilio` = :aliado_merkas_sucursal_domicilio WHERE `id` = :id';
+        $query = 'UPDATE `aliados_merkas_sucursales` 
+        SET  `aliado_merkas_id` = :aliado_merkas_id, 
+        `aliado_merkas_sucursal_fecha_registro` = :aliado_merkas_sucursal_fecha_registro, 
+        `aliado_merkas_sucursal_principal` = :aliado_merkas_sucursal_principal, 
+        `aliado_merkas_sucursal_correo` = :aliado_merkas_sucursal_correo, 
+        `aliado_merkas_sucursal_direccion` = :aliado_merkas_sucursal_direccion, 
+        `municipio_id` = :municipio_id, 
+        `aliado_merkas_sucursal_latitud` = :aliado_merkas_sucursal_latitud,
+         `aliado_merkas_sucursal_longitud` = :aliado_merkas_sucursal_longitud, 
+         `aliado_merkas_sucursal_horario_lunes_inicio` = :aliado_merkas_sucursal_horario_lunes_inicio,
+          `aliado_merkas_sucursal_horario_lunes_fin` = :aliado_merkas_sucursal_horario_lunes_fin,
+           `aliado_merkas_sucursal_horario_sabado_inicio` = :aliado_merkas_sucursal_horario_sabado_inicio, 
+           `aliado_merkas_sucursal_horario_sabado_fin` = :aliado_merkas_sucursal_horario_sabado_fin, 
+           `aliado_merkas_sucursal_horario_festivos_inicio` = :aliado_merkas_sucursal_horario_festivos_inicio,
+            `aliado_merkas_sucursal_horario_festivos_fin` = :aliado_merkas_sucursal_horario_festivos_fin, 
+            `aliado_merkas_sucursal_telefono` = :aliado_merkas_sucursal_telefono, 
+            `aliado_merkas_sucursal_whatssap` = :aliado_merkas_sucursal_whatssap, 
+            `aliado_merkas_sucursal_domicilio` = :aliado_merkas_sucursal_domicilio 
+            WHERE `aliado_merkas_sucursal_id` = :id';
         $statement = $this->getDb()->prepare($query);
-        $statement->bindParam('aliado_merkas_sucursal_id', $aliados_merkas_sucursales->aliado_merkas_sucursal_id);
+        $statement->bindParam('id', $aliados_merkas_sucursales->aliado_merkas_sucursal_id);
         $statement->bindParam('aliado_merkas_id', $aliados_merkas_sucursales->aliado_merkas_id);
         $statement->bindParam('aliado_merkas_sucursal_fecha_registro', $aliados_merkas_sucursales->aliado_merkas_sucursal_fecha_registro);
         $statement->bindParam('aliado_merkas_sucursal_principal', $aliados_merkas_sucursales->aliado_merkas_sucursal_principal);
@@ -156,7 +174,7 @@ final class Aliados_merkas_sucursalesRepository
 
         $statement->execute();
 
-        return $this->checkAndGet((int) $aliados_merkas_sucursales->id);
+        return $this->checkAndGet((int) $aliados_merkas_sucursales->aliado_merkas_sucursal_id);
     }
 
     public function delete(int $aliados_merkas_sucursalesId): void

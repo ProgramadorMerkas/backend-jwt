@@ -37,5 +37,5 @@ $container['aliados_merkas_categorias_relacion_service'] = static function (Pimp
 };
 
 $container['aliados_merkas_sucursales_service'] = static function (Pimple\Container $container): App\Service\Aliados_merkas_sucursalesService {
-    return new App\Service\Aliados_merkas_sucursalesService($container['aliados_merkas_sucursales_repository']);
+    return new App\Service\Aliados_merkas_sucursalesService($container['aliados_merkas_sucursales_repository'] , $container['aliados_merkas_repository']);
 };
