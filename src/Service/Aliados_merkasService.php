@@ -198,10 +198,14 @@ final class Aliados_merkasService
     }
 
 
-    public function updateAliado($data , $id):object
+    public function updateAliado(array $input , int $id):object
     {
-        $aliado = $this->checkAndGet($id);         
+        $aliado = $this->checkAndGet($id);   
+
+        $data = json_decode((string) json_encode($input), false);
+
         $aliado->aliado_merkas_rango_efectivo = $data->effective; 
+
         $aliado->aliado_merkas_rango_credito =  $data->credit;
         $aliado->aliado_merkas_nit =   $data->nit ;
         $aliado->aliado_merkas_dv =  $data->dv ; 
