@@ -77,9 +77,23 @@ final class UsuariosRepository
 
     public function create(object $usuarios): object
     {
-        $query = 'INSERT INTO `usuarios` (`usuario_id`, `usuario_codigo`, `usuario_id_padre`, `usuario_fecha_registro`, `usuario_rol_principal`, `usuario_nombre_completo`, `usuario_nombre`, `usuario_apellido`, `usuario_genero`, `usuario_tipo_documento`, `usuario_numero_documento`, `usuario_correo`, `usuario_telefono`, `usuario_whatssap`, `usuario_direccion`, `municipio_id`, `usuario_estado`, `usuario_status`, `usuario_puntos`, `usuario_merkash`, `usuario_contrasena`, `usuario_terminos`, `usuario_ruta_img`, `usuario_token_contrasena`, `usuario_token_fecha`, `usuario_token_merkash`, `usuario_token_merkash_fecha`, `usuario_bienvenida`, `usuario_latitud`, `usuario_longitud`) VALUES (:usuario_id, :usuario_codigo, :usuario_id_padre, :usuario_fecha_registro, :usuario_rol_principal, :usuario_nombre_completo, :usuario_nombre, :usuario_apellido, :usuario_genero, :usuario_tipo_documento, :usuario_numero_documento, :usuario_correo, :usuario_telefono, :usuario_whatssap, :usuario_direccion, :municipio_id, :usuario_estado, :usuario_status, :usuario_puntos, :usuario_merkash, :usuario_contrasena, :usuario_terminos, :usuario_ruta_img, :usuario_token_contrasena, :usuario_token_fecha, :usuario_token_merkash, :usuario_token_merkash_fecha, :usuario_bienvenida, :usuario_latitud, :usuario_longitud)';
-        $statement = $this->getDb()->prepare($query);
-        $statement->bindParam('usuario_id', $usuarios->usuario_id);
+        $query = 'INSERT INTO `usuarios` (`usuario_codigo`, 
+        `usuario_id_padre`, 
+        `usuario_fecha_registro`, 
+        `usuario_rol_principal`, `usuario_nombre_completo`, 
+        `usuario_nombre`, `usuario_apellido`, `usuario_genero`, `usuario_tipo_documento`,
+         `usuario_numero_documento`, `usuario_correo`, `usuario_telefono`, `usuario_whatssap`,
+         `usuario_direccion`, `municipio_id`, `usuario_estado`, `usuario_status`, `usuario_puntos`, 
+         `usuario_merkash`, `usuario_contrasena`, `usuario_terminos`, `usuario_ruta_img`, `usuario_token_contrasena`, 
+         `usuario_token_fecha`, `usuario_token_merkash`, `usuario_token_merkash_fecha`, `usuario_bienvenida`, 
+         `usuario_latitud`, `usuario_longitud`) VALUES (:usuario_id, :usuario_codigo, :usuario_id_padre,
+          :usuario_fecha_registro, :usuario_rol_principal, :usuario_nombre_completo, :usuario_nombre, :usuario_apellido,
+           :usuario_genero, :usuario_tipo_documento, :usuario_numero_documento, :usuario_correo, :usuario_telefono, 
+           :usuario_whatssap, :usuario_direccion, :municipio_id, :usuario_estado, :usuario_status, :usuario_puntos, 
+           :usuario_merkash, :usuario_contrasena, :usuario_terminos, :usuario_ruta_img, :usuario_token_contrasena, 
+           :usuario_token_fecha, :usuario_token_merkash, :usuario_token_merkash_fecha, :usuario_bienvenida, :usuario_latitud,
+            :usuario_longitud)';
+        $statement = $this->getDb()->prepare($query); 
         $statement->bindParam('usuario_codigo', $usuarios->usuario_codigo);
         $statement->bindParam('usuario_id_padre', $usuarios->usuario_id_padre);
         $statement->bindParam('usuario_fecha_registro', $usuarios->usuario_fecha_registro);
@@ -115,9 +129,9 @@ final class UsuariosRepository
         return $this->checkAndGet((int) $this->getDb()->lastInsertId());
     }
 
-    public function update(object $usuarios, object $data): object
+    public function update(object $usuarios ): object
     {
-        if (isset($data->usuario_id)) {
+        /*if (isset($data->usuario_id)) {
             $usuarios->usuario_id = $data->usuario_id;
         }
         if (isset($data->usuario_codigo)) {
@@ -206,11 +220,40 @@ final class UsuariosRepository
         }
         if (isset($data->usuario_longitud)) {
             $usuarios->usuario_longitud = $data->usuario_longitud;
-        }
+        }**/
 
-        $query = 'UPDATE `usuarios` SET `usuario_id` = :usuario_id, `usuario_codigo` = :usuario_codigo, `usuario_id_padre` = :usuario_id_padre, `usuario_fecha_registro` = :usuario_fecha_registro, `usuario_rol_principal` = :usuario_rol_principal, `usuario_nombre_completo` = :usuario_nombre_completo, `usuario_nombre` = :usuario_nombre, `usuario_apellido` = :usuario_apellido, `usuario_genero` = :usuario_genero, `usuario_tipo_documento` = :usuario_tipo_documento, `usuario_numero_documento` = :usuario_numero_documento, `usuario_correo` = :usuario_correo, `usuario_telefono` = :usuario_telefono, `usuario_whatssap` = :usuario_whatssap, `usuario_direccion` = :usuario_direccion, `municipio_id` = :municipio_id, `usuario_estado` = :usuario_estado, `usuario_status` = :usuario_status, `usuario_puntos` = :usuario_puntos, `usuario_merkash` = :usuario_merkash, `usuario_contrasena` = :usuario_contrasena, `usuario_terminos` = :usuario_terminos, `usuario_ruta_img` = :usuario_ruta_img, `usuario_token_contrasena` = :usuario_token_contrasena, `usuario_token_fecha` = :usuario_token_fecha, `usuario_token_merkash` = :usuario_token_merkash, `usuario_token_merkash_fecha` = :usuario_token_merkash_fecha, `usuario_bienvenida` = :usuario_bienvenida, `usuario_latitud` = :usuario_latitud, `usuario_longitud` = :usuario_longitud WHERE `id` = :id';
+        $query = 'UPDATE `usuarios` SET  
+        `usuario_codigo` = :usuario_codigo, 
+        `usuario_id_padre` = :usuario_id_padre, 
+        `usuario_fecha_registro` = :usuario_fecha_registro, 
+        `usuario_rol_principal` = :usuario_rol_principal, 
+        `usuario_nombre_completo` = :usuario_nombre_completo,
+         `usuario_nombre` = :usuario_nombre, 
+         `usuario_apellido` = :usuario_apellido, 
+         `usuario_genero` = :usuario_genero, 
+         `usuario_tipo_documento` = :usuario_tipo_documento,
+          `usuario_numero_documento` = :usuario_numero_documento,
+           `usuario_correo` = :usuario_correo, 
+           `usuario_telefono` = :usuario_telefono,
+            `usuario_whatssap` = :usuario_whatssap, 
+            `usuario_direccion` = :usuario_direccion, 
+            `municipio_id` = :municipio_id, 
+            `usuario_estado` = :usuario_estado,
+             `usuario_status` = :usuario_status,
+              `usuario_puntos` = :usuario_puntos, 
+              `usuario_merkash` = :usuario_merkash,
+               `usuario_contrasena` = :usuario_contrasena, 
+               `usuario_terminos` = :usuario_terminos, 
+               `usuario_ruta_img` = :usuario_ruta_img,
+                `usuario_token_contrasena` = :usuario_token_contrasena,
+                 `usuario_token_fecha` = :usuario_token_fecha, 
+                 `usuario_token_merkash` = :usuario_token_merkash, 
+                 `usuario_token_merkash_fecha` = :usuario_token_merkash_fecha,
+                  `usuario_bienvenida` = :usuario_bienvenida,
+                   `usuario_latitud` = :usuario_latitud,
+                    `usuario_longitud` = :usuario_longitud WHERE `usuario_id` = :id';
         $statement = $this->getDb()->prepare($query);
-        $statement->bindParam('usuario_id', $usuarios->usuario_id);
+        $statement->bindParam('id', $usuarios->usuario_id);
         $statement->bindParam('usuario_codigo', $usuarios->usuario_codigo);
         $statement->bindParam('usuario_id_padre', $usuarios->usuario_id_padre);
         $statement->bindParam('usuario_fecha_registro', $usuarios->usuario_fecha_registro);
@@ -243,7 +286,7 @@ final class UsuariosRepository
 
         $statement->execute();
 
-        return $this->checkAndGet((int) $usuarios->id);
+        return $this->checkAndGet((int) $usuarios->usuario_id);
     }
 
     public function delete(int $usuariosId): void

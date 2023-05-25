@@ -13,7 +13,11 @@ final class Create extends Base
     public function __invoke(Request $request, Response $response): Response
     {
         $input = (array) $request->getParsedBody();
-        $usuarios = $this->getUsuariosService()->create($input);
+ 
+        $uploadedFiles = $request->getUploadedFiles(); 
+
+        $usuarios = $this->getUsuariosService()->create($input , $uploadedFiles);
+
 
         return $response->withJson($usuarios, StatusCodeInterface::STATUS_CREATED);
     }
