@@ -48,7 +48,7 @@ final class UsuariosService
         if(empty($data->usuario_id))
         {
         //buscar aliado comercial
-        $aliado_merkas = $this->aliado_merkasRepository->checkAndGet($data->aliado_merkas_id);
+        $aliado_merkas = $this->aliado_merkasRepository->checkAndGet((int)$data->aliado_merkas_id);
         //se crea objecto user
         $user = new \stdclass();
         //generate code
@@ -111,7 +111,7 @@ final class UsuariosService
             return $usuarioCreated;
 
         }else{
-            
+
             //consultamos el usuario por id;
             $usuario = $this->UsuariosRepository->checkAndGet($data->usuario_id);
 
