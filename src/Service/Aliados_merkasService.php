@@ -166,7 +166,7 @@ final class Aliados_merkasService
         $sucursal->aliado_merkas_sucursal_longitud = $data->longitud;
         $sucursal->aliado_merkas_sucursal_telefono = $data->phone;   
         $sucursal->aliado_merkas_sucursal_domicilio = $data->delivery; //domicilios
-        
+        $sucursal->aliado_merkas_sucursal_string_horarios = $data->schedules;
         return $this->sucursalesRepository->create($sucursal);
  
     }
@@ -185,8 +185,8 @@ final class Aliados_merkasService
         //consultar el aliado recibido
         $aliado_merkas = $this->checkAndGet($aliado_merkas_id);
         $carpeta = uniqid();
-        #$path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
-        $path = "C:/Works/Merkas/assets/media/users/".$carpeta;
+        $path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
+        //$path = "C:/Works/Merkas/assets/media/users/".$carpeta;
         //validamos que la carpeta este creda
         if(!is_dir($path))
         {
@@ -198,7 +198,8 @@ final class Aliados_merkasService
 
         $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-        $file->moveTo("C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename);
+        //$file->moveTo("C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename);
+        $file->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
         //actualizar en base de datos
         $aliado_merkas->aliado_merkas_ruta_img_portada = $path."/".$filename;
 

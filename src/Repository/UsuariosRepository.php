@@ -32,6 +32,22 @@ final class UsuariosRepository
         return $usuarios;
     }
 
+    public function findByReferido(string $code):object
+    {
+        $query = "SELECT * FROM `usuarios` WHERE `usuario_codigo` = :code";
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('code', $code);
+        $statement->execute();
+        $usuarios = $statement->fetchObject();
+        if (! $usuarios) {
+            
+            throw new \Exception('No se encontro usuarios con ese código.', 404);
+        }
+
+        return $usuarios;
+
+    }
+
     //buscar usuarios por codigo
 
     public function find_by_usuario_codigo(string $codigo):object

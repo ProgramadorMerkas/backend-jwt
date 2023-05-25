@@ -68,6 +68,7 @@ final class Aliados_merkas_sucursalesService
         $aliados_merkas_sucursales->aliado_merkas_sucursal_longitud = $data->longitud;
         $aliados_merkas_sucursales->aliado_merkas_sucursal_telefono = $data->phone;   
         $aliados_merkas_sucursales->aliado_merkas_sucursal_domicilio = $data->delivery;
+        $aliados_merkas_sucursales->aliado_merkas_sucursal_string_horarios = $data->schedules;
 
         return $this->aliados_merkas_sucursalesRepository->update($aliados_merkas_sucursales);
 

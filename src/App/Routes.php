@@ -16,7 +16,7 @@ $app->post('/aliados_merkas/img' , App\Controller\Aliados_merkas\UpdateImages::c
 #$app->delete('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Delete::class);
 
 #$app->get('/usuarios', App\Controller\Usuarios\GetAll::class);
-#$app->post('/usuarios', App\Controller\Usuarios\Create::class);
+$app->post('/usuarios', App\Controller\Usuarios\Create::class);
 #$app->get('/usuarios/{id}', App\Controller\Usuarios\GetOne::class);
 #$app->put('/usuarios/{id}', App\Controller\Usuarios\Update::class);
 #$app->delete('/usuarios/{id}', App\Controller\Usuarios\Delete::class);

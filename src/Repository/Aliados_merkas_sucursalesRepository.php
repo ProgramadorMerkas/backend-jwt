@@ -70,7 +70,7 @@ final class Aliados_merkas_sucursalesRepository
         $statement->bindParam('aliado_merkas_sucursal_telefono', $aliados_merkas_sucursales->aliado_merkas_sucursal_telefono);
         $statement->bindParam('aliado_merkas_sucursal_whatssap', $aliados_merkas_sucursales->aliado_merkas_sucursal_whatssap);
         $statement->bindParam('aliado_merkas_sucursal_domicilio', $aliados_merkas_sucursales->aliado_merkas_sucursal_domicilio);
-
+        $statement->bindParam('aliado_merkas_sucursal_string_horarios' , $aliados_merkas_sucursales->aliado_merkas_sucursal_string_horarios);
         $statement->execute();
 
         return $this->checkAndGet((int) $this->getDb()->lastInsertId());
@@ -171,6 +171,7 @@ final class Aliados_merkas_sucursalesRepository
         $statement->bindParam('aliado_merkas_sucursal_telefono', $aliados_merkas_sucursales->aliado_merkas_sucursal_telefono);
         $statement->bindParam('aliado_merkas_sucursal_whatssap', $aliados_merkas_sucursales->aliado_merkas_sucursal_whatssap);
         $statement->bindParam('aliado_merkas_sucursal_domicilio', $aliados_merkas_sucursales->aliado_merkas_sucursal_domicilio);
+        $statement->bindParam('aliado_merkas_sucursal_string_horarios' , $aliados_merkas_sucursales->aliado_merkas_sucursal_string_horarios);
 
         $statement->execute();
 

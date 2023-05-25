@@ -9,7 +9,7 @@ $container['aliados_merkas_service'] = static function (Pimple\Container $contai
 };
 
 $container['usuarios_service'] = static function (Pimple\Container $container): App\Service\UsuariosService {
-    return new App\Service\UsuariosService($container['usuarios_repository']);
+    return new App\Service\UsuariosService($container['usuarios_repository'] , $container['aliados_merkas_repository']);
 };
 
 $container['municipios_service'] = static function (Pimple\Container $container): App\Service\MunicipiosService {
