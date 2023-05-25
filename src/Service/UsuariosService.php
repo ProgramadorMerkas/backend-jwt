@@ -6,7 +6,8 @@ namespace App\Service;
 
 use App\Repository\UsuariosRepository;
 use App\Service\GeneratorCodeUsuariosService;
-use App\Repository\Aliados_merkasRepository;
+use App\Repository\Aliados_merkasRepository; 
+
 
 final class UsuariosService
 {
@@ -88,8 +89,7 @@ final class UsuariosService
             $user->usuario_puntos = 0;
             $user->usuario_merkash = 0;
             $user->usuario_contrasena = md5($data->password);
-            $user->usuario_terminos = null;
-            $user->usuario_ruta_img = 
+            $user->usuario_terminos = null; 
             $user->usuario_token_contrasena = null;
             $user->usuario_token_fecha = null;
             $user->usuario_token_merkash = null;
@@ -101,7 +101,7 @@ final class UsuariosService
 
             $user->usuario_ruta_img = $loadImage;
 
-            $usuarioCreated =  $this->usuariosRepository->create($data);
+            $usuarioCreated =  $this->usuariosRepository->create($user);
 
             //actualizar el $aliado_merkas
             $aliado_merkas->usuario_id = $usuarioCreated->usuario_id;
@@ -113,7 +113,7 @@ final class UsuariosService
         }else{
 
             //consultamos el usuario por id;
-            $usuario = $this->UsuariosRepository->checkAndGet($data->usuario_id);
+            $usuario = $this->usuariosRepository->checkAndGet((int) $data->usuario_id);
 
             $usuario->usuario_correo = $data->mail;
             $usuario->usuario_contrasena = md5($data->password);
@@ -133,14 +133,13 @@ final class UsuariosService
     /***CARGAR IMAGEN */
     public function loadLogoImagen($fileUpload):string
     {
-        $file = $fileUpload['logo'];
+         
 
-        if ($file->getError() === UPLOAD_ERR_OK) {
+            $extension = pathinfo($fileUpload->getClientFilename() , PATHINFO_EXTENSION);
 
-            $extension = pathinfo($file->getClientFilename() , PATHINFO_EXTENSION);
             $base = bin2hex(random_bytes(8));
 
-            $filename = sprintf('%s.%0.8s', $basename, $extension);
+            $filename = sprintf('%s.%0.8s', $base, $extension);
 
             $carpeta = uniqid();
 
@@ -154,14 +153,13 @@ final class UsuariosService
             
             //moviendo archivo
             $fileUpload->moveTo("C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename);
+            #$fileUpload->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
 
             $pathName = "C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename;
+            #$pathName = "/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename;
             
             return  $pathName;
-
-        }
-
-        return null;
+ 
     }
 
     public function update(array $input, int $usuariosId): object
