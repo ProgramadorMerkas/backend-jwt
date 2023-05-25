@@ -191,99 +191,7 @@ final class Aliados_merkasRepository
 }
 
     public function update(object $aliados_merkas ): object
-    {
-        
-        /*if (isset($data->usuario_id)) {
-            $aliados_merkas->usuario_id = $data->usuario_id;
-        }
-        if (isset($data->desarrollador_id)) {
-            $aliados_merkas->desarrollador_id = $data->desarrollador_id;
-        }
-        if (isset($data->aliado_merkas_id_padre)) {
-            $aliados_merkas->aliado_merkas_id_padre = $data->aliado_merkas_id_padre;
-        }
-        if (isset($data->aliado_merkas_rango_id)) {
-            $aliados_merkas->aliado_merkas_rango_id = $data->aliado_merkas_rango_id;
-        }
-        if (isset($data->aliado_merkas_rango_efectivo)) {
-            $aliados_merkas->aliado_merkas_rango_efectivo = $data->aliado_merkas_rango_efectivo;
-        }
-        if (isset($data->aliado_merkas_rango_credito)) {
-            $aliados_merkas->aliado_merkas_rango_credito = $data->aliado_merkas_rango_credito;
-        }
-        if (isset($data->aliado_merkas_fecha_registro)) {
-            $aliados_merkas->aliado_merkas_fecha_registro = $data->aliado_merkas_fecha_registro;
-        }
-        if (isset($data->aliado_merkas_nit)) {
-            $aliados_merkas->aliado_merkas_nit = $data->aliado_merkas_nit;
-        }
-        if (isset($data->aliado_merkas_dv)) {
-            $aliados_merkas->aliado_merkas_dv = $data->aliado_merkas_dv;
-        }
-        if (isset($data->aliado_merkas_estado)) {
-            $aliados_merkas->aliado_merkas_estado = $data->aliado_merkas_estado;
-        }
-        if (isset($data->aliado_merkas_nombre)) {
-            $aliados_merkas->aliado_merkas_nombre = $data->aliado_merkas_nombre;
-        }
-        if (isset($data->aliado_merkas_descripcion)) {
-            $aliados_merkas->aliado_merkas_descripcion = $data->aliado_merkas_descripcion;
-        }
-        if (isset($data->aliado_merkas_website)) {
-            $aliados_merkas->aliado_merkas_website = $data->aliado_merkas_website;
-        }
-        if (isset($data->aliado_merkas_facebook)) {
-            $aliados_merkas->aliado_merkas_facebook = $data->aliado_merkas_facebook;
-        }
-        if (isset($data->aliado_merkas_twitter)) {
-            $aliados_merkas->aliado_merkas_twitter = $data->aliado_merkas_twitter;
-        }
-        if (isset($data->aliado_merkas_youtube)) {
-            $aliados_merkas->aliado_merkas_youtube = $data->aliado_merkas_youtube;
-        }
-        if (isset($data->aliado_merkas_instagram)) {
-            $aliados_merkas->aliado_merkas_instagram = $data->aliado_merkas_instagram;
-        }
-        if (isset($data->aliado_merkas_regimen_contributivo)) {
-            $aliados_merkas->aliado_merkas_regimen_contributivo = $data->aliado_merkas_regimen_contributivo;
-        }
-        if (isset($data->aliado_merkas_tipo)) {
-            $aliados_merkas->aliado_merkas_tipo = $data->aliado_merkas_tipo;
-        }
-        if (isset($data->aliado_merkas_rep_legal_nombre)) {
-            $aliados_merkas->aliado_merkas_rep_legal_nombre = $data->aliado_merkas_rep_legal_nombre;
-        }
-        if (isset($data->aliado_merkas_rep_legal_apellido)) {
-            $aliados_merkas->aliado_merkas_rep_legal_apellido = $data->aliado_merkas_rep_legal_apellido;
-        }
-        if (isset($data->aliado_merkas_rep_legal_genero)) {
-            $aliados_merkas->aliado_merkas_rep_legal_genero = $data->aliado_merkas_rep_legal_genero;
-        }
-        if (isset($data->aliado_merkas_rep_legal_tipo_documento)) {
-            $aliados_merkas->aliado_merkas_rep_legal_tipo_documento = $data->aliado_merkas_rep_legal_tipo_documento;
-        }
-        if (isset($data->aliado_merkas_rep_legal_numero_documento)) {
-            $aliados_merkas->aliado_merkas_rep_legal_numero_documento = $data->aliado_merkas_rep_legal_numero_documento;
-        }
-        if (isset($data->aliado_merkas_rep_legal_correo)) {
-            $aliados_merkas->aliado_merkas_rep_legal_correo = $data->aliado_merkas_rep_legal_correo;
-        }
-        if (isset($data->aliado_merkas_rep_legal_telefono)) {
-            $aliados_merkas->aliado_merkas_rep_legal_telefono = $data->aliado_merkas_rep_legal_telefono;
-        }
-        if (isset($data->aliado_merkas_rep_legal_cargo)) {
-            $aliados_merkas->aliado_merkas_rep_legal_cargo = $data->aliado_merkas_rep_legal_cargo;
-        }
-        if (isset($data->aliado_merkas_rep_legal_direccion)) {
-            $aliados_merkas->aliado_merkas_rep_legal_direccion = $data->aliado_merkas_rep_legal_direccion;
-        }
-        if (isset($data->municipio_id)) {
-            $aliados_merkas->municipio_id = $data->municipio_id;
-        }
-        if (isset($data->aliado_merkas_ruta_img_portada)) {
-            $aliados_merkas->aliado_merkas_ruta_img_portada = $data->aliado_merkas_ruta_img_portada;
-        }*/
-
+    { 
         $query = 'UPDATE `aliados_merkas` SET  
         `usuario_id` = :usuario_id, 
         `desarrollador_id` = :desarrollador_id, 
@@ -348,9 +256,11 @@ final class Aliados_merkasRepository
         $statement->bindParam('municipio_id', $aliados_merkas->municipio_id);
         $statement->bindParam('aliado_merkas_ruta_img_portada', $aliados_merkas->aliado_merkas_ruta_img_portada);
         $statement->bindParam('id', $aliados_merkas->aliado_merkas_id);
+        
         $statement->execute();
 
         return $this->checkAndGet((int) $aliados_merkas->aliado_merkas_id);
+          
     }
 
     public function delete(int $aliados_merkasId): void

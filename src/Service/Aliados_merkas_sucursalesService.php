@@ -57,6 +57,7 @@ final class Aliados_merkas_sucursalesService
         $aliado_merkas->aliado_merkas_youtube = $data->youtube;
         $aliado_merkas->aliado_merkas_twitter = $data->twitter;
         $aliado_merkas->aliado_merkas_website = $data->website;
+
         $this->aliados_merkasRepository->update($aliado_merkas);
 
         //actualizando sucursal
@@ -68,7 +69,8 @@ final class Aliados_merkas_sucursalesService
         $aliados_merkas_sucursales->aliado_merkas_sucursal_longitud = $data->longitud;
         $aliados_merkas_sucursales->aliado_merkas_sucursal_telefono = $data->phone;   
         $aliados_merkas_sucursales->aliado_merkas_sucursal_domicilio = $data->delivery;
-        $aliados_merkas_sucursales->aliado_merkas_sucursal_string_horarios = $data->schedules;
+        $schudelesSerializable = serialize($data->schedules);
+        $aliados_merkas_sucursales->aliado_merkas_sucursal_string_horarios = $schudelesSerializable;
 
         return $this->aliados_merkas_sucursalesRepository->update($aliados_merkas_sucursales);
 

@@ -143,30 +143,33 @@ final class Aliados_merkasService
 
         $data = json_decode((string) json_encode($input), false);
 
-        $aliado = new \stdClass();
+        //$aliado = new \stdClass();
 
         $aliados_merkas->aliado_merkas_instagram = $data->instagram;
         $aliados_merkas->aliado_merkas_facebook = $data->facebook;
         $aliados_merkas->aliado_merkas_youtube = $data->youtube;
         $aliados_merkas->aliado_merkas_twitter = $data->twitter;
         $aliados_merkas->aliado_merkas_website = $data->website;
+        $aliados_merkas->municipio_id = $data->municipality;
+       
 
         $this->aliados_merkasRepository->update($aliados_merkas);
         //crear la sucursal
         $sucursal = new \stdClass();
-
+        //print_r($aliados_merkas);
         $sucursal->aliado_merkas_id = $aliados_merkasId;
         $sucursal->aliado_merkas_sucursal_fecha_registro = date("Y-m-d");
         $sucursal->aliado_merkas_sucursal_principal = 1;
         $sucursal->aliado_merkas_sucursal_correo = $data->mailForConsumers; 
-        $sucursal->aliado_merkas_sucursal_direccion = $data->address; //direccion sucursal
+        $sucursal->aliado_merkas_sucursal_direccion = (string) $data->address; //direccion sucursal
         $sucursal->aliado_merkas_sucursal_whatssap = $data->wpp;
         $sucursal->municipio_id =  $data->municipality;
-        $sucursal->aliado_merkas_sucursal_latitud = $data->latitud;
-        $sucursal->aliado_merkas_sucursal_longitud = $data->longitud;
+        $sucursal->aliado_merkas_sucursal_latitud = (string) $data->latitud;
+        $sucursal->aliado_merkas_sucursal_longitud = (string)  $data->longitud;
         $sucursal->aliado_merkas_sucursal_telefono = $data->phone;   
-        $sucursal->aliado_merkas_sucursal_domicilio = $data->delivery; //domicilios
-        $sucursal->aliado_merkas_sucursal_string_horarios = $data->schedules;
+        $sucursal->aliado_merkas_sucursal_domicilio =  (int) $data->delivery; //domicilios
+        $schudelesSerializable = serialize($data->schedules);
+        $sucursal->aliado_merkas_sucursal_string_horarios =  $schudelesSerializable; 
         return $this->sucursalesRepository->create($sucursal);
  
     }

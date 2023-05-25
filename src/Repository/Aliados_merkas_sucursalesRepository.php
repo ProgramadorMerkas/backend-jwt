@@ -53,11 +53,11 @@ final class Aliados_merkas_sucursalesRepository
         `aliado_merkas_sucursal_longitud`, 
         `aliado_merkas_sucursal_telefono`, 
         `aliado_merkas_sucursal_whatssap`, 
-        `aliado_merkas_sucursal_domicilio`) VALUES (:aliado_merkas_id, 
+        `aliado_merkas_sucursal_domicilio` , `aliado_merkas_sucursal_string_horarios`) VALUES (:aliado_merkas_id, 
         :aliado_merkas_sucursal_fecha_registro, :aliado_merkas_sucursal_principal, 
         :aliado_merkas_sucursal_correo, :aliado_merkas_sucursal_direccion, :municipio_id,
          :aliado_merkas_sucursal_latitud, :aliado_merkas_sucursal_longitud,            
-         :aliado_merkas_sucursal_telefono, :aliado_merkas_sucursal_whatssap, :aliado_merkas_sucursal_domicilio)';
+         :aliado_merkas_sucursal_telefono, :aliado_merkas_sucursal_whatssap, :aliado_merkas_sucursal_domicilio , :aliado_merkas_sucursal_string_horarios)';
         $statement = $this->getDb()->prepare($query); 
         $statement->bindParam('aliado_merkas_id', $aliados_merkas_sucursales->aliado_merkas_id);
         $statement->bindParam('aliado_merkas_sucursal_fecha_registro', $aliados_merkas_sucursales->aliado_merkas_sucursal_fecha_registro);
@@ -150,7 +150,8 @@ final class Aliados_merkas_sucursalesRepository
             `aliado_merkas_sucursal_horario_festivos_fin` = :aliado_merkas_sucursal_horario_festivos_fin, 
             `aliado_merkas_sucursal_telefono` = :aliado_merkas_sucursal_telefono, 
             `aliado_merkas_sucursal_whatssap` = :aliado_merkas_sucursal_whatssap, 
-            `aliado_merkas_sucursal_domicilio` = :aliado_merkas_sucursal_domicilio 
+            `aliado_merkas_sucursal_domicilio` = :aliado_merkas_sucursal_domicilio ,
+            `aliado_merkas_sucursal_string_horarios` = :aliado_merkas_sucursal_string_horarios
             WHERE `aliado_merkas_sucursal_id` = :id';
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('id', $aliados_merkas_sucursales->aliado_merkas_sucursal_id);
