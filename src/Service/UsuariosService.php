@@ -97,7 +97,7 @@ final class UsuariosService
             $user->usuario_bienvenida = false;
             $user->usuario_latitud = $data->latitud;
             $user->usuario_longitud = $data->longitud;
-            $loadImage = loadLogoImagen($fileUpload);
+            $loadImage = $this->loadLogoImagen($fileUpload);
 
             $user->usuario_ruta_img = $loadImage;
 
@@ -121,7 +121,7 @@ final class UsuariosService
             $usuario->usuario_latitud = $data->latitud;
             $usuario->usuario_longitud = $data->longitud;
 
-            $loadImage = loadLogoImagen($fileUpload);
+            $loadImage = $this->loadLogoImagen($fileUpload);
 
             $usuario->usuario_ruta_img = $loadImage;
 
