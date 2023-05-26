@@ -232,4 +232,17 @@ final class Aliados_merkasService
         return $this->aliados_merkasRepository->update($aliado);
     }
 
+    /***findBy nit */
+    public function getNit($nit)
+    {
+        $nit = $this->Aliados_merkasRepository->getNit($nit);
+
+        if($nit)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }

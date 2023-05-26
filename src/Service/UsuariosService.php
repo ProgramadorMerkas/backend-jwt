@@ -165,9 +165,12 @@ final class UsuariosService
     public function update(array $input, int $usuariosId): object
     {
         $usuarios = $this->checkAndGet($usuariosId);
+
         $data = json_decode((string) json_encode($input), false);
 
-        return $this->usuariosRepository->update($usuarios, $data);
+        $usuarios->usuario_terminos = $data->terminos;
+
+        return $this->usuariosRepository->update($usuarios);
     }
 
     public function delete(int $usuariosId): void

@@ -9,7 +9,7 @@ $app->get('/status', 'App\Controller\Home:getStatus');
 $app->post('/aliados_merkas', App\Controller\Aliados_merkas\Create::class);
 #$app->get('/aliados_merkas/{id}', App\Controller\Aliados_merkas\GetOne::class);
 $app->put('/aliados_merkas/{id}', App\Controller\Aliados_merkas\Update::class);
-
+$app->get('/aliados_merkas/nit/{nit}' , App\Controller\Aliados_merkas\Get::class);
 $app->put('/aliados_merkas/edit/{id}' , App\Controller\Aliados_merkas\UpdateAliado::class);
 
 $app->post('/aliados_merkas/img' , App\Controller\Aliados_merkas\UpdateImages::class);
@@ -18,7 +18,7 @@ $app->post('/aliados_merkas/img' , App\Controller\Aliados_merkas\UpdateImages::c
 #$app->get('/usuarios', App\Controller\Usuarios\GetAll::class);
 $app->post('/usuarios', App\Controller\Usuarios\Create::class);
 #$app->get('/usuarios/{id}', App\Controller\Usuarios\GetOne::class);
-#$app->put('/usuarios/{id}', App\Controller\Usuarios\Update::class);
+$app->put('/usuarios/{id}', App\Controller\Usuarios\Update::class);
 #$app->delete('/usuarios/{id}', App\Controller\Usuarios\Delete::class);
 
 #$app->get('/municipios', App\Controller\Municipios\GetAll::class);
