@@ -233,11 +233,12 @@ final class Aliados_merkasService
     }
 
     /***findBy nit */
-    public function getNit($nit)
-    {
-        $nit = $this->Aliados_merkasRepository->getNit($nit);
+    public function getNit(string $nit)
+    {  
+        
+        $nitf = $this->aliados_merkasRepository->findByNit($nit);
 
-        if($nit)
+        if($nitf)
         {
             return true;
         }
