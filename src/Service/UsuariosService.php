@@ -178,4 +178,19 @@ final class UsuariosService
         $this->checkAndGet($usuariosId);
         $this->usuariosRepository->delete($usuariosId);
     }
+
+    /**buscar si existe mail */
+    public function getMail(array $input)
+    {
+        $data = json_decode((string) json_encode($input), false);
+
+        $valid = $this->usuariosRepository->findByMail((string) $data->mail);
+
+        if($valid)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

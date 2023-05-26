@@ -32,6 +32,21 @@ final class UsuariosRepository
         return $usuarios;
     }
 
+    /**find mail user count */
+    public function findByMail(string $mail)
+    {
+        $query = 'SELECT usuario_correo FROM `usuarios` WHERE `usuario_correo` = :mail';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('mail', $mail);
+        $statement->execute();
+        $usuarios = $statement->fetchObject();
+        if (! $usuarios) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function findByReferido(string $code):object
     {
         $query = "SELECT * FROM `usuarios` WHERE `usuario_codigo` = :code";
