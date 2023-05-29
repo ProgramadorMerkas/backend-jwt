@@ -189,7 +189,7 @@ final class Aliados_merkasService
         $aliado_merkas = $this->checkAndGet($aliado_merkas_id);
         $carpeta = uniqid();
         //$path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
-        $path = "C:/Works/Merkas/assets/media/users/".$carpeta;
+        $path = "/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta;
         //validamos que la carpeta este creda
         if(!is_dir($path))
         {
@@ -200,8 +200,8 @@ final class Aliados_merkasService
         $basename = bin2hex(random_bytes(8));
 
         $filename = sprintf('%s.%0.8s', $basename, $extension);
-
-        $file->moveTo("C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename);
+        ///home/merkas/public_html/merkasbusiness/assets/media/users
+        $file->moveTo("/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename);
         //$file->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
         //actualizar en base de datos
         $aliado_merkas->aliado_merkas_ruta_img_portada = $path."/".$filename;

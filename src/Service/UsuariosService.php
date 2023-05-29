@@ -144,7 +144,7 @@ final class UsuariosService
             $carpeta = uniqid();
 
             #$path ="/home/programador/Documentos/assets/media/users/".$carpeta;
-            $path ="C:/Works/Merkas/assets/media/users/".$carpeta;
+            $path ="/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta;
             //crear carperta si no existe
             if(!is_dir($path))
             {
@@ -152,10 +152,10 @@ final class UsuariosService
             }
             
             //moviendo archivo
-            $fileUpload->moveTo("C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename);
+            $fileUpload->moveTo("/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename);
             #$fileUpload->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
 
-            $pathName = "C:/Works/Merkas/assets/media/users/".$carpeta."/".$filename;
+            $pathName = "/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename;
             #$pathName = "/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename;
             
             return  $pathName;
