@@ -20,7 +20,7 @@ final class Aliados_merkas_rangosRepository
 
     public function checkAndGet(int $aliados_merkas_rangosId): object
     {
-        $query = 'SELECT * FROM `aliados_merkas_rangos` WHERE `id` = :id';
+        $query = 'SELECT * FROM `aliados_merkas_rangos` WHERE `aliado_merkas_rango_id` = :id';
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('id', $aliados_merkas_rangosId);
         $statement->execute();
@@ -34,7 +34,7 @@ final class Aliados_merkas_rangosRepository
 
     public function getAll(): array
     {
-        $query = 'SELECT * FROM `aliados_merkas_rangos` ORDER BY `id`';
+        $query = 'SELECT * FROM `aliados_merkas_rangos` ORDER BY `aliado_merkas_rango_id`';
         $statement = $this->getDb()->prepare($query);
         $statement->execute();
 

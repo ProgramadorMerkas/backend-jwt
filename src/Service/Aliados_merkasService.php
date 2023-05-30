@@ -104,7 +104,7 @@ final class Aliados_merkasService
             
             }else{
                  //dado el caso que si retorne se valida si es comercio o desarrollador
-                 if($usuario->usuario_rol_principal == "DESARROLLADOR MASTER")
+                 if(($usuario->usuario_rol_principal == "DESARROLLADOR MASTER") || ($usuario->usuario_rol_principal == "DESARROLLADOR SENIOR"))
                  {
                     //en caso de ser desarrollador, tiene que buscar el id del desarrolllador
                     $desarrollador = $this->desarrolladoresRepository->find_by_usuario_id($usuario->usuario_id);
