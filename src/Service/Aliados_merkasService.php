@@ -23,11 +23,14 @@ final class Aliados_merkasService
 
     private Aliados_merkas_sucursalesRepository  $sucursalesRepository;
 
+    private Aliados_merkas_rangosRepository $rangosRepository;
+
     public function __construct(Aliados_merkasRepository $aliados_merkasRepository  , 
     UsuariosRepository $usuariosRepository , 
     DesarrolladoresRepository $desarrolladoresRepository,
     Aliados_merkas_categorias_relacionRepository $categoria_relacionRepository ,
-    Aliados_merkas_sucursalesRepository $sucursalesRepository
+    Aliados_merkas_sucursalesRepository $sucursalesRepository,
+    Aliados_merkas_rangosRepository $rangosRepository
     )
     {
         $this->aliados_merkasRepository = $aliados_merkasRepository;
@@ -39,6 +42,8 @@ final class Aliados_merkasService
         $this->categoria_relacionRepository = $categoria_relacionRepository;
 
         $this->sucursalesRepository = $sucursalesRepository;
+
+        $this->rangosRepository = $rangosRepository;
     }
 
     public function checkAndGet(int $aliados_merkasId): object
@@ -128,6 +133,18 @@ final class Aliados_merkasService
             }
         }
 
+        //buscar rangue efective 
+
+        $rangeEfectivo = $this->rangosRepository->checkAndGet($aliado_merkas->effective);
+
+        $rangeCredito = $this->rangosRepository->checkAndGet($aliado_merkas->credit);
+
+        $aliado_merkas->effective = $rangeEfectivo->aliado_merkas_rango_comision;
+
+        $aliado_merkas->credit = $rangeCredito->aliado_merkas_rango_comision;
+
+        $aliado_merkas->aliado_merkas_rango_id = $rangeEfectivo->aliado_merkas_rango_id;
+
         $aliadoCreated =  $this->aliados_merkasRepository->create_data_1($aliados_merkas);
         //guardar la categoria
         $categoria = ["categoria" =>$aliados_merkas->category  , "aliado_merkas_id" => $aliadoCreated->aliado_merkas_id];
@@ -204,7 +221,7 @@ final class Aliados_merkasService
         $file->moveTo("/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename);
         //$file->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
         //actualizar en base de datos
-        $aliado_merkas->aliado_merkas_ruta_img_portada = $path."/".$filename;
+        $aliado_merkas->aliado_merkas_ruta_img_portada = "/assets/media/users/".$filename;
 
         
        // $this->
@@ -218,9 +235,18 @@ final class Aliados_merkasService
 
         $data = json_decode((string) json_encode($input), false);
 
-        $aliado->aliado_merkas_rango_efectivo = $data->effective; 
+        //buscar rangue efective 
 
-        $aliado->aliado_merkas_rango_credito =  $data->credit;
+        $rangeEfectivo = $this->rangosRepository->checkAndGet($data->effective);
+
+        $rangeCredito = $this->rangosRepository->checkAndGet($data->credit);
+
+        $aliado->aliado_merkas_rango_efectivo = $rangeEfectivo->aliado_merkas_rango_comision;
+
+        $aliado->aliado_merkas_rango_credito = $rangeCredito->aliado_merkas_rango_comision;
+
+        $aliado->aliado_merkas_rango_id = $rangeEfectivo->aliado_merkas_rango_id;
+ 
         $aliado->aliado_merkas_nit =   $data->nit ;
         $aliado->aliado_merkas_dv =  $data->dv ; 
         $aliado->aliado_merkas_nombre =  $data->registeredName ;

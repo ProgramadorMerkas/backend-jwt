@@ -139,6 +139,7 @@ final class Aliados_merkasRepository
         `usuario_id`,
         `desarrollador_id`,
         `aliado_merkas_id_padre`, 
+        `aliado_merkas_rango_id`,
         `aliado_merkas_rango_efectivo`, 
         `aliado_merkas_rango_credito`, 
         `aliado_merkas_fecha_registro`, 
@@ -154,6 +155,7 @@ final class Aliados_merkasRepository
             :usuario_id, 
             :desarrollador_id,
             :aliado_merkas_id_padre,
+            :aliado_merkas_rango_id,
             :aliado_merkas_rango_efectivo,             
             :aliado_merkas_rango_credito, 
             :aliado_merkas_fecha_registro, 
@@ -172,6 +174,7 @@ final class Aliados_merkasRepository
         $statement->bindParam(':usuario_id' , $cero);
         $statement->bindParam(':aliado_merkas_rango_efectivo' , $aliados_merkas->effective);
         $statement->bindParam(':aliado_merkas_rango_credito' , $aliados_merkas->credit);
+        $statement->bindParam(':aliado_merkas_rango_id' , $aliados_merkas->aliado_merkas_rango_id);
         $statement->bindParam(':aliado_merkas_fecha_registro' , $date);
         $statement->bindParam(':aliado_merkas_nit' , $aliados_merkas->nit);
         $statement->bindParam(':aliado_merkas_dv' , $aliados_merkas->dv);
