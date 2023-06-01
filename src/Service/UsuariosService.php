@@ -7,6 +7,7 @@ namespace App\Service;
 use App\Repository\UsuariosRepository;
 use App\Service\GeneratorCodeUsuariosService;
 use App\Repository\Aliados_merkasRepository; 
+use App\Repository\SettingsRepository;
 
 
 final class UsuariosService
@@ -17,11 +18,15 @@ final class UsuariosService
 
     private Aliados_merkasRepository $aliado_merkasRepository;
 
-    public function __construct(UsuariosRepository $usuariosRepository , Aliados_merkasRepository $aliado_merkasRepository )
+    private SettingsRepository $settingsRepository;
+
+    public function __construct(UsuariosRepository $usuariosRepository , Aliados_merkasRepository $aliado_merkasRepository , SettingsRepository $settingsRepository )
     {
         $this->usuariosRepository = $usuariosRepository;
 
         $this->aliado_merkasRepository = $aliado_merkasRepository;
+
+        $this->settingsRepository = $settingsRepository;
  
     }
 
@@ -144,7 +149,10 @@ final class UsuariosService
             $carpeta = uniqid();
 
             #$path ="/home/programador/Documentos/assets/media/users/".$carpeta;
-            $path ="/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta;
+            $settings = $this->settingsRepository->findByActive("ruta_merkas");
+
+            $path = $settings->settings_valor."assets/media/users/".$carpeta;
+
             //crear carperta si no existe
             if(!is_dir($path))
             {
@@ -152,10 +160,10 @@ final class UsuariosService
             }
             
             //moviendo archivo
-            $fileUpload->moveTo("/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename);
+            $fileUpload->moveTo($path."/".$filename);
             #$fileUpload->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
 
-            $pathName = "/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename;
+            $pathName = "assets/media/users/".$carpeta."/".$filename;
             #$pathName = "/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename;
             
             return  $pathName;

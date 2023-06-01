@@ -62,3 +62,9 @@ $app->get('/aliados_merkas_rangos', App\Controller\Aliados_merkas_rangos\GetAll:
 #$app->get('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\GetOne::class);
 $app->put('/aliados_merkas_sucursales/edit/{id}', App\Controller\Aliados_merkas_sucursales\Update::class);
 #$app->delete('/aliados_merkas_sucursales/{id}', App\Controller\Aliados_merkas_sucursales\Delete::class);
+
+$app->get('/settings', App\Controller\Settings\GetAll::class);
+$app->post('/settings', App\Controller\Settings\Create::class);
+$app->get('/settings/{id}', App\Controller\Settings\GetOne::class);
+$app->put('/settings/{id}', App\Controller\Settings\Update::class);
+$app->delete('/settings/{id}', App\Controller\Settings\Delete::class);

@@ -11,6 +11,7 @@ use App\Repository\DesarrolladoresRepository;
 use App\Repository\Aliados_merkas_categorias_relacionRepository;
 use App\Repository\Aliados_merkas_sucursalesRepository;
 use App\Repository\Aliados_merkas_rangosRepository;
+use app\Repository\SettingsRepository;
 
 final class Aliados_merkasService
 {
@@ -26,12 +27,15 @@ final class Aliados_merkasService
 
     private Aliados_merkas_rangosRepository $rangosRepository;
 
+    private SettingsRepository $settingsRepository;
+
     public function __construct(Aliados_merkasRepository $aliados_merkasRepository  , 
     UsuariosRepository $usuariosRepository , 
     DesarrolladoresRepository $desarrolladoresRepository,
     Aliados_merkas_categorias_relacionRepository $categoria_relacionRepository ,
     Aliados_merkas_sucursalesRepository $sucursalesRepository,
-    Aliados_merkas_rangosRepository $rangosRepository
+    Aliados_merkas_rangosRepository $rangosRepository,
+    SettingsRepository $settingsRepository
     )
     {
         $this->aliados_merkasRepository = $aliados_merkasRepository;
@@ -45,6 +49,8 @@ final class Aliados_merkasService
         $this->sucursalesRepository = $sucursalesRepository;
 
         $this->rangosRepository = $rangosRepository;
+
+        $this->settingsRepository  = $settingsRepository;
     }
 
     public function checkAndGet(int $aliados_merkasId): object
@@ -203,12 +209,16 @@ final class Aliados_merkasService
 
     public function updatePortada(int $aliado_merkas_id , $file):object
     {
-        //consultar el aliado recibido
+        try{
+            //consultar el aliado recibido
         $aliado_merkas = $this->checkAndGet($aliado_merkas_id);
         $carpeta = uniqid();
         //$path =  "/home/programador/Documentos/assets/media/users/".$carpeta;
-        $path = "/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta;
-        //validamos que la carpeta este creda
+        $settings = $this->settingsRepository->findByActive(  "ruta_merkas");
+         
+        $path = $settings->settings_valor."assets/media/users/".$carpeta;
+        
+         //validamos que la carpeta este creda
         if(!is_dir($path))
         {
             mkdir($path , 0777, true); //creamos la carpeta
@@ -219,14 +229,18 @@ final class Aliados_merkasService
 
         $filename = sprintf('%s.%0.8s', $basename, $extension);
         ///home/merkas/public_html/merkasbusiness/assets/media/users
-        $file->moveTo("/home/merkas/public_html/merkasbusiness/assets/media/users/".$carpeta."/".$filename);
+        $file->moveTo($path."/".$filename);
         //$file->moveTo("/home/programador/Documentos/assets/media/users/".$carpeta."/".$filename);
         //actualizar en base de datos
-        $aliado_merkas->aliado_merkas_ruta_img_portada = "/assets/media/users/".$filename;
+        $aliado_merkas->aliado_merkas_ruta_img_portada = "assets/media/users/".$filename;
 
         
        // $this->
         return $this->aliados_merkasRepository->update($aliado_merkas);
+        }catch(Exception $e)
+        {
+            throw new \Exception($e->getMessage(), 500);
+        }
     }
 
 
