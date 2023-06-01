@@ -142,15 +142,15 @@ final class Aliados_merkasService
 
         //buscar rangue efective 
 
-        $rangeEfectivo = $this->rangosRepository->checkAndGet($aliado_merkas->effective);
+        $rangeEfectivo = $this->rangosRepository->checkAndGet($aliados_merkas->effective);
 
-        $rangeCredito = $this->rangosRepository->checkAndGet($aliado_merkas->credit);
+        $rangeCredito = $this->rangosRepository->checkAndGet($aliados_merkas->credit);
 
-        $aliado_merkas->effective = $rangeEfectivo->aliado_merkas_rango_comision;
+        $aliados_merkas->effective = $rangeEfectivo->aliado_merkas_rango_comision;
 
-        $aliado_merkas->credit = $rangeCredito->aliado_merkas_rango_comision;
+        $aliados_merkas->credit = $rangeCredito->aliado_merkas_rango_comision;
 
-        $aliado_merkas->aliado_merkas_rango_id = $rangeEfectivo->aliado_merkas_rango_id;
+        $aliados_merkas->aliado_merkas_rango_id = $rangeEfectivo->aliado_merkas_rango_id;
 
         $aliadoCreated =  $this->aliados_merkasRepository->create_data_1($aliados_merkas);
         //guardar la categoria
