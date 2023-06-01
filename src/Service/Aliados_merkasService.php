@@ -10,6 +10,7 @@ use App\Repository\UsuariosRepository;
 use App\Repository\DesarrolladoresRepository;
 use App\Repository\Aliados_merkas_categorias_relacionRepository;
 use App\Repository\Aliados_merkas_sucursalesRepository;
+use App\Repository\Aliados_merkas_rangosRepository;
 
 final class Aliados_merkasService
 {
