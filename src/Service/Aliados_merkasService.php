@@ -252,9 +252,9 @@ final class Aliados_merkasService
 
         //buscar rangue efective 
 
-        $rangeEfectivo = $this->rangosRepository->checkAndGet($data->effective);
+        $rangeEfectivo = $this->rangosRepository->checkAndGet((int)$data->effective);
 
-        $rangeCredito = $this->rangosRepository->checkAndGet($data->credit);
+        $rangeCredito = $this->rangosRepository->checkAndGet((int)$data->credit);
 
         $aliado->aliado_merkas_rango_efectivo = $rangeEfectivo->aliado_merkas_rango_comision;
 
