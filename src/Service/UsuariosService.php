@@ -8,7 +8,7 @@ use App\Repository\UsuariosRepository;
 use App\Service\GeneratorCodeUsuariosService;
 use App\Repository\Aliados_merkasRepository; 
 use App\Repository\SettingsRepository;
-
+use App\Service\MailSendService;
 
 final class UsuariosService
 {
@@ -20,13 +20,18 @@ final class UsuariosService
 
     private SettingsRepository $settingsRepository;
 
-    public function __construct(UsuariosRepository $usuariosRepository , Aliados_merkasRepository $aliado_merkasRepository , SettingsRepository $settingsRepository )
+    private MailSendService $mailSendService;
+
+    public function __construct(UsuariosRepository $usuariosRepository , Aliados_merkasRepository $aliado_merkasRepository , 
+    SettingsRepository $settingsRepository , MailSendService $mailSendService)
     {
         $this->usuariosRepository = $usuariosRepository;
 
         $this->aliado_merkasRepository = $aliado_merkasRepository;
 
         $this->settingsRepository = $settingsRepository;
+
+        $this->mailSendService = $mailSendService;
  
     }
 
@@ -178,7 +183,12 @@ final class UsuariosService
 
         $usuarios->usuario_terminos = $data->terminos;
 
-        return $this->usuariosRepository->update($usuarios);
+        $actualizado = $this->usuariosRepository->update($usuarios);
+
+        //enviar correo
+        $this->mailSendService->sendMailNuevoAliadoMerkas($usuarios);
+
+        return $actualizado;
     }
 
     public function delete(int $usuariosId): void

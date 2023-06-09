@@ -43,3 +43,7 @@ $container['aliados_merkas_sucursales_service'] = static function (Pimple\Contai
 $container['settings_service'] = static function (Pimple\Container $container): App\Service\SettingsService {
     return new App\Service\SettingsService($container['settings_repository']);
 };
+
+$container['mail_send_service'] = static function (Pimple\Container $container): App\Service\MailSendService {
+    return new App\Service\MailSendService($container['settings_repository']);
+};
