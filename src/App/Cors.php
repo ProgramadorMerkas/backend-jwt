@@ -8,7 +8,7 @@ use Slim\App;
 
 return static function (App $app): void {
     $app->options('/{routes:.+}', function (Request $request, Response $response) {
-        return $response;
+        return $response->withStatus(200);
     });
 
     $app->add(function (Request $request, $handler): Response {
@@ -18,8 +18,9 @@ return static function (App $app): void {
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader(
                 'Access-Control-Allow-Headers',
-                'X-Requested-With, Content-Type, Accept, Origin, Authorization'
+                'X-Requested-With, Content-Type, Accept, Origin, Authorization, Custom-Header'
             )
+            ->withHeader('Access-Control-Max-Age', '3600')
             ->withHeader(
                 'Access-Control-Allow-Methods',
                 'GET, POST, PUT, DELETE, PATCH, OPTIONS'

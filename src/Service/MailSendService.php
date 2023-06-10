@@ -18,10 +18,11 @@ final class MailSendService
 
     public function sendMailNuevoAliadoMerkas(object $usuarios)
     {
-        $html = $this->findByActive("email");
+        $html = $this->settingsRepository->findByActive("email");
 
+        //var_dump($html);
         //partimos la información 
-        $partes = explode("@" , $html);
+        $partes = explode("@" , $html->settings_valor);
 
         $body = $partes[0]." ".$usuarios->usuario_nombre_completo." </br>".$partes[1];
 
@@ -34,7 +35,7 @@ final class MailSendService
         $msm    = $body;
         $msm    = wordwrap($msm , 70);
 
-        if(!mail($usuarios->correo , $subject , $msm , $cabeceras))
+        if(!mail($usuarios->usuario_correo , $subject , $msm , $cabeceras))
         {
             throw new \Exception("Error enviando el correo" , 400);
         }
