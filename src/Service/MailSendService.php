@@ -26,9 +26,9 @@ final class MailSendService
 
         $body = $partes[0]." ".$usuarios->usuario_nombre_completo." </br>".$partes[1];
 
-        $cabeceras = 'MIME-Version: 1.0'. '\r\n';
-        $cabeceras .= 'Content-type: text/html; charset=UTF-8' .'\r\n';
-        $cabeceras .= 'From: Puntos Merkas<gerencia@merkas.co>'.'\r\n';
+        $cabeceras = 'MIME-Version: 1.0'. "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $cabeceras .= 'From: Puntos Merkas<gerencia@merkas.co>'. "\r\n";
 
         //envio
         $subject = 'Registro exitoso Aliado Comercial';
