@@ -211,4 +211,22 @@ final class UsuariosService
 
         return false;
     }
+
+    /**Actualizar Gps cuando usuario use la app*/
+    public function updatedGPS(array $input , int $id):object
+    {
+        $usuarios = $this->checkAndGet($id);
+        
+        $data = json_decode((string) json_encode($input) , false);
+        
+       $usuarios->usuario_latitud = $data->latitud;
+
+        $usuarios->usuario_longitud = $data->longitud;
+
+        $usuarios->usuario_last_login = date("Y-m-d H:i:s");
+           
+        $actualizado = $this->usuariosRepository->update($usuarios);
+
+        return $actualizado;
+    }
 }

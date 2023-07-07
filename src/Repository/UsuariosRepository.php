@@ -266,7 +266,9 @@ final class UsuariosRepository
                  `usuario_token_merkash_fecha` = :usuario_token_merkash_fecha,
                   `usuario_bienvenida` = :usuario_bienvenida,
                    `usuario_latitud` = :usuario_latitud,
-                    `usuario_longitud` = :usuario_longitud WHERE `usuario_id` = :id';
+                    `usuario_longitud` = :usuario_longitud ,
+                    `usuario_last_login` = :usuario_last_login 
+                    WHERE `usuario_id` = :id';
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('id', $usuarios->usuario_id);
         $statement->bindParam('usuario_codigo', $usuarios->usuario_codigo);
@@ -298,6 +300,7 @@ final class UsuariosRepository
         $statement->bindParam('usuario_bienvenida', $usuarios->usuario_bienvenida);
         $statement->bindParam('usuario_latitud', $usuarios->usuario_latitud);
         $statement->bindParam('usuario_longitud', $usuarios->usuario_longitud);
+        $statement->bindParam('usuario_last_login' , $usuarios->usuario_last_login);
 
         $statement->execute();
 

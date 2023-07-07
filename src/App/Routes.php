@@ -19,6 +19,7 @@ $app->post('/aliados_merkas/img' , App\Controller\Aliados_merkas\UpdateImages::c
 $app->post('/usuarios', App\Controller\Usuarios\Create::class);
 $app->post('/usuarios/mail', App\Controller\Usuarios\GetMail::class);
 $app->put('/usuarios/{id}', App\Controller\Usuarios\Update::class);
+$app->put('/usuarios/gps/{id}' , 'App\Controller\Usuarios\Update:geolocalizacion');
 #$app->delete('/usuarios/{id}', App\Controller\Usuarios\Delete::class);
 
 #$app->get('/municipios', App\Controller\Municipios\GetAll::class);
