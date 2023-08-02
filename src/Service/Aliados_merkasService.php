@@ -80,6 +80,7 @@ final class Aliados_merkasService
     public function create(array $input): int
     {
         $aliados_merkas = json_decode((string) json_encode($input), false);
+        //print_r($aliados_merkas);
 
         //validar si ya existe
         if($this->validateNit($aliados_merkas))
@@ -92,8 +93,9 @@ final class Aliados_merkasService
         $aliados_merkas->aliado_merkas_id_padre = 0;
 
         //validar si existe el valor
-        if($aliados_merkas->referido == 0)
-        {
+        if($aliados_merkas->referido == "0")
+        { //echo "entro aca";
+            //echo "sigguio aca";
             //buscar el referido con el codigo q8i67yz865
             $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) "q8i67yz865");
 
@@ -102,7 +104,7 @@ final class Aliados_merkasService
             $aliados_merkas->desarrollador_id = $desarrollador->desarrollador_id;
             
         }else{
-
+            //echo "entra aca";
             $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) $aliados_merkas->referido);
 
             if(is_null($usuario))

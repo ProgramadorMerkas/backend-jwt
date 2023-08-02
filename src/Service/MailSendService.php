@@ -54,7 +54,7 @@ final class MailSendService
                   ], 
             "subject" => "Registro Exitoso", 
             "html_part" => $body, 
-            "text_part" => "", 
+            "text_part" => "Notificación", 
             "text_part_auto" => false, 
             "headers" => [
                            "X-CustomHeader" => "Header value" 
