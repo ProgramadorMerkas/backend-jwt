@@ -94,7 +94,7 @@ final class UsuariosService
             $user->usuario_whatssap = null;
             $user->usuario_direccion = null;
             $user->municipio_id = $data->municipality;
-            $user->usuario_estado = 0;
+            $user->usuario_estado = 1;
             $user->usuario_status = "ROOKIE";
             $user->usuario_puntos = 0;
             $user->usuario_merkash = 0;
