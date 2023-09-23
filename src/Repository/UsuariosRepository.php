@@ -62,10 +62,11 @@ final class UsuariosRepository
         return $usuarios;
 
     }
+    
 
     //buscar usuarios por codigo
 
-    public function find_by_usuario_codigo(string $codigo):object
+    public function find_by_usuario_codigo(string $codigo)
     {
         $query = 'SELECT * FROM  `usuarios` WHERE `usuario_codigo` = :codigo LIMIT 0,1';
         $statement = $this->getDb()->prepare($query);
@@ -73,9 +74,9 @@ final class UsuariosRepository
         $statement->execute();
 
         $usuarios = $statement->fetchObject();
-        if (! $usuarios) {
+        /*if (! $usuarios) {
             throw new \Exception('Usuarios not found.', 404);
-        }
+        }*/
 
         return $usuarios;
 

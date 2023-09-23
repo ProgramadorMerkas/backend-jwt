@@ -32,6 +32,19 @@ final class DesarrolladoresRepository
         return $desarrolladores;
     }
 
+    public function findByCodeUsuario(string $code)
+    {
+        $query ='select des.desarrollador_id , usuarios.usuario_id from usuarios 
+        inner join desarrolladores des on des.usuario_id = usuarios.usuario_id
+        where usuarios.usuario_codigo = :code';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('code'  , $code);
+        $statement->execute();
+        $desarrolladores = $statement->fetchObject();
+
+        return $desarrolladores;
+    }
+
     public function find_by_usuario_id(int $usuario_id):object
     {
         $query = 'SELECT * FROM `desarrolladores` WHERE usuario_id = :user LIMIT 0,1';

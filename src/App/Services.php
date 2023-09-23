@@ -48,3 +48,14 @@ $container['settings_service'] = static function (Pimple\Container $container): 
 $container['mail_send_service'] = static function (Pimple\Container $container): App\Service\MailSendService {
     return new App\Service\MailSendService($container['settings_repository']);
 };
+
+$container['bancos_service'] = static function (Pimple\Container $container): App\Service\BancosService {
+    return new App\Service\BancosService($container['bancos_repository']);
+};
+
+$container['create_trade'] = static function (Pimple\Container $container): App\Service\TradeService {
+    return new \App\Service\TradeService($container['aliados_merkas_repository'],
+    $container['usuarios_repository'], $container['desarrolladores_repository'] , $container['aliados_merkas_categorias_relacion_repository']
+, $container['aliados_merkas_sucursales_repository'] , $container['aliados_merkas_rangos_repository'] , $container['settings_repository'] 
+, $container['usuarios_service'] , $container['aliados_merkas_service']);
+};

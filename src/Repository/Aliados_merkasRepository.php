@@ -169,9 +169,9 @@ final class Aliados_merkasRepository
             :aliado_merkas_rep_legal_apellido)';
 
         $statement = $this->getDb()->prepare($query); 
-        $cero = 0;
+        $cero = 0; 
         $date = date("Y-m-d");
-        $statement->bindParam(':usuario_id' , $cero);
+        $statement->bindParam(':usuario_id' , $aliados_merkas->usuario_id);
         $statement->bindParam(':aliado_merkas_rango_efectivo' , $aliados_merkas->effective);
         $statement->bindParam(':aliado_merkas_rango_credito' , $aliados_merkas->credit);
         $statement->bindParam(':aliado_merkas_rango_id' , $aliados_merkas->aliado_merkas_rango_id);

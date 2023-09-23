@@ -229,4 +229,49 @@ final class UsuariosService
 
         return $actualizado;
     }
+
+    //createuser
+    public function createUser($data , $desarrollador):object
+    {
+        //validar si existe el correo ya creado
+        $email_exists = $this->usuariosRepository->findByMail((string) $data->mail);
+        if($email_exists){ throw new \Exception('Correo ya usado', 400); }
+        $user = new \stdclass();
+        //generate code
+        $this->generateCode = new  GeneratorCodeUsuariosService();
+
+        $code = $this->generateCode->generate();
+
+        $user->usuario_codigo = $code;
+        $user->usuario_id_padre = $desarrollador->usuario_id;
+        $user->usuario_fecha_registro = date("Y-m-d");
+        $user->usuario_rol_principal = "ALIADO COMERCIAL";
+        $user->usuario_nombre_completo = $data->registeredName;
+        $user->usuario_nombre = null;
+        $user->usuario_apellido = null;
+        $user->usuario_genero = null;
+        $user->usuario_tipo_documento = null;
+        $user->usuario_numero_documento = null;
+        $user->usuario_correo = $data->mail;
+        $user->usuario_telefono = null;
+        $user->usuario_whatssap = null;
+        $user->usuario_direccion = null;
+        $user->municipio_id = null;
+        $user->usuario_estado = 1;
+        $user->usuario_status = "ROOKIE";
+        $user->usuario_puntos = 0;
+        $user->usuario_merkash = 0;
+        $user->usuario_contrasena = md5($data->password);
+        $user->usuario_terminos = null; 
+        $user->usuario_token_contrasena = null;
+        $user->usuario_token_fecha = null;
+        $user->usuario_token_merkash = null;
+        $user->usuario_token_merkash_fecha = null;
+        $user->usuario_bienvenida = false;
+        $user->usuario_latitud = null;
+        $user->usuario_longitud = null;
+        $user->usuario_ruta_img = " ";
+        return $usuarioCreated =  $this->usuariosRepository->create($user);
+
+    }
 }

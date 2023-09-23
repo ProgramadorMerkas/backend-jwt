@@ -77,7 +77,7 @@ final class Aliados_merkasService
 
     }
 
-    public function create(array $input): int
+    public function create(array $input , object $usuario_created): int
     {
         $aliados_merkas = json_decode((string) json_encode($input), false);
         //print_r($aliados_merkas);
@@ -85,7 +85,10 @@ final class Aliados_merkasService
         //validar si ya existe
         if($this->validateNit($aliados_merkas))
         {
+            $this->usuariosRepository->delete($usuario_created->usuario_id);
               throw new Aliados_merkasException('El nit usado ya existe', 400);
+              //elimine el user creado;
+            
         }
         //agregar campo desarrollador_id , aliado_merkas_id_padre
         $aliados_merkas->desarrollador_id = 0;
@@ -107,7 +110,7 @@ final class Aliados_merkasService
             //echo "entra aca";
             $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) $aliados_merkas->referido);
 
-            if(is_null($usuario))
+            if(!$usuario)
             {
                 //si el código no retorna un usuario entonces se asigna a merkas global
                 $usuario = $this->usuariosRepository->find_by_usuario_codigo((string) "q8i67yz865");
@@ -152,6 +155,8 @@ final class Aliados_merkasService
         $aliados_merkas->credit = $rangeCredito->aliado_merkas_rango_comision;
 
         $aliados_merkas->aliado_merkas_rango_id = $rangeEfectivo->aliado_merkas_rango_id;
+
+        $aliados_merkas->usuario_id = $usuario_created->usuario_id;
 
         $aliadoCreated =  $this->aliados_merkasRepository->create_data_1($aliados_merkas);
         //guardar la categoria

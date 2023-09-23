@@ -13,10 +13,7 @@ return function (
     bool $logErrorDetails
 ) use ($app): Response {
     $statusCode = 500;
-    if (is_int($exception->getCode()) &&
-        $exception->getCode() >= 400 &&
-        $exception->getCode() <= 500
-    ) {
+    if (is_int($exception->getCode()) && $exception->getCode() >= 400 && $exception->getCode() <= 500) {
         $statusCode = $exception->getCode();
     }
     $className = new ReflectionClass(get_class($exception));

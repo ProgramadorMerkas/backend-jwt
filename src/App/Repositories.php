@@ -41,3 +41,7 @@ $container['aliados_merkas_sucursales_repository'] = static function (Pimple\Con
 $container['settings_repository'] = static function (Pimple\Container $container): App\Repository\SettingsRepository {
     return new App\Repository\SettingsRepository($container['db']);
 };
+
+$container['bancos_repository'] = static function (Pimple\Container $container): App\Repository\BancosRepository {
+    return new App\Repository\BancosRepository($container['db']);
+};
