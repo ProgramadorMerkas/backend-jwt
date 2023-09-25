@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 #$app->get('/', 'App\Controller\Home:getHelp');
 $app->get('/status', 'App\Controller\Home:getStatus');
-$app->post('/create_trade' , App\Controller\Create_trade\Create::class);
+$app->post('/createtrade' , App\Controller\Create_trade\Create::class);
 #$app->get('/aliados_merkas', App\Controller\Aliados_merkas\GetAll::class);
 $app->post('/aliados_merkas', App\Controller\Aliados_merkas\Create::class);
 #$app->get('/aliados_merkas/{id}', App\Controller\Aliados_merkas\GetOne::class);
