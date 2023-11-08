@@ -17,7 +17,7 @@ final class Create extends Base
         $trade = $this->getTradeService()->create($input);
           
         $resp =  new \stdclass();
-        $resp->res = "successful";
+        $resp->response = "successful";
 
         return $response->withJson($resp, StatusCodeInterface::STATUS_CREATED);
     }
