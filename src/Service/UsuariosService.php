@@ -271,6 +271,7 @@ final class UsuariosService
         $user->usuario_latitud = null;
         $user->usuario_longitud = null;
         $user->usuario_ruta_img = " ";
+        $this->mailSendService->sendMailNuevoAliadoMerkas($user);
         return $usuarioCreated =  $this->usuariosRepository->create($user);
 
     }
