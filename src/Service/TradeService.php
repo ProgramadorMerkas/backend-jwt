@@ -96,16 +96,18 @@ final class TradeService
         }else{
 
             $usuario = $this->desarrolladoresRepository->findByCodeUsuario($trade->referido);
-
-            if(!$usuario)
-
+            
+            if(!empty((array)$usuario))
             {    
-
+                $desarrollador->desarrollador_id = $usuario->desarrollador_id;
+                $desarrollador->usuario_id = $usuario->usuario_id;
+            }else{
                 $desarrollador->desarrollador_id = 3;
 
                 $desarrollador->usuario_id = 4;
             }
         }
+        
         //crear usuario -> 
         $usuario_created = $this->userService->createUser($trade , $desarrollador);        
         //crear aliado merkas
