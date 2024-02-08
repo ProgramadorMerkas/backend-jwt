@@ -11,7 +11,8 @@ use App\Repository\DesarrolladoresRepository;
 use App\Repository\Aliados_merkas_categorias_relacionRepository;
 use App\Repository\Aliados_merkas_sucursalesRepository;
 use App\Repository\Aliados_merkas_rangosRepository;
-use app\Repository\SettingsRepository;
+use App\Repository\SettingsRepository;
+use App\Service\UsuariosService;
 
 final class Aliados_merkasService
 {
@@ -29,13 +30,16 @@ final class Aliados_merkasService
 
     private SettingsRepository $settingsRepository;
 
+    private UsuariosService $usuarioService;
+
     public function __construct(Aliados_merkasRepository $aliados_merkasRepository  , 
     UsuariosRepository $usuariosRepository , 
     DesarrolladoresRepository $desarrolladoresRepository,
     Aliados_merkas_categorias_relacionRepository $categoria_relacionRepository ,
     Aliados_merkas_sucursalesRepository $sucursalesRepository,
     Aliados_merkas_rangosRepository $rangosRepository,
-    SettingsRepository $settingsRepository
+    SettingsRepository $settingsRepository,
+    UsuariosService $usuarioService
     )
     {
         $this->aliados_merkasRepository = $aliados_merkasRepository;
@@ -51,6 +55,8 @@ final class Aliados_merkasService
         $this->rangosRepository = $rangosRepository;
 
         $this->settingsRepository  = $settingsRepository;
+
+        $this->usuarioService = $usuarioService;
     }
 
     public function checkAndGet(int $aliados_merkasId): object
@@ -66,6 +72,57 @@ final class Aliados_merkasService
     public function getOne(int $aliados_merkasId): object
     {
         return $this->checkAndGet($aliados_merkasId);
+    }
+
+    public function create_24($usuario , $trade , $aliado , $efective , $credit)
+    {
+        /**Creando usuario
+         * validamos si existe el nit
+         */
+        if($this->validateNit($trade))
+        {
+            throw new Aliados_merkasException('El nit usado ya existe', 400);
+        }
+        $usuario_creado  = $this->usuarioService->createUser($trade , $usuario);
+        
+        $aliado_create = new \stdClass();
+        if($aliado)
+        {
+                $aliado_create->desarrollador_id = 0;
+                //consultar el id del usuario por 
+                $aliado_merkas = $this->aliados_merkasRepository->find_by_usuario_id($usuario->usuario_id);
+                $aliado_create->aliado_merkas_id_padre = $aliado_merkas->aliado_merkas_id;
+        }else{
+            //consultar informacion de desarrollador_id por usuario_id
+            $desarrollador = $this->desarrolladoresRepository->find_by_usuario_id($usuario->usuario_id);
+            $aliado_create->desarrollador_id = $desarrollador->desarrollador_id;
+            $aliado_create->aliado_merkas_id_padre = 0;
+        }
+
+        $aliado_create->effective = $efective->aliado_merkas_rango_comision;
+        $aliado_create->credit = $credit->aliado_merkas_rango_comision;
+        $aliado_create->aliado_merkas_rango_id = $efective->aliado_merkas_rango_id;
+        $aliado_create->usuario_id = $usuario_creado->usuario_id;
+        $aliado_create->nit = $trade->nit;
+        $aliado_create->dv = $trade->dv;
+        $aliado_create->registeredName = $trade->registeredName;
+        $aliado_create->typeOfTaxpayer = $trade->typeOfTaxpayer;
+        $aliado_create->typeOfTrade = $trade->typeOfTrade;
+        $aliado_create->nameLegal = $trade->nameLegal;
+        $aliado_create->surnamesLegal = $trade->surnamesLegal;
+
+        //create_aliado
+        $save =  $this->aliados_merkasRepository->create_data_1($aliado_create);
+        //guardar la categoria
+        $categoria = ["categoria" =>$trade->category  , "aliado_merkas_id" => $save->aliado_merkas_id];
+
+        $saveCategoriaRelation = $this->categoria_relacionRepository->created_data_1($categoria);   
+
+    }
+
+    public function validate_mail($trade)
+    {
+        return $this->usuariosRepository->find_by_mail($trade->mail);
     }
 
     /**validar si existe el nit */

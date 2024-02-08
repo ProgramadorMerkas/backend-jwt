@@ -1,5 +1,5 @@
 #Motor de reescritura encendido
-#RewriteBase /api-merkas/public
+#RewriteBase /public
 RewriteBase /v2/public
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

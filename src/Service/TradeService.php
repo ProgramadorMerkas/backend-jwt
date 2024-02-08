@@ -79,40 +79,40 @@ final class TradeService
     public function create(array $input)
     {
         
-            $trade = json_decode((string) json_encode($input), false);
-        
+        $trade = json_decode((string) json_encode($input), false);
+        //var_dump($trade);
         //consultar rangos y usar para creditos efecctive effective , credit
         $efective = $this->rangosRepository->checkAndGet((int) $trade->effective);
         $credi = $this->rangosRepository->checkAndGet((int) $trade->credit);
         //
         //vaidar si el registro de referido es diferente de 0
-        $desarrollador = new \stdclass();
+        
         if($trade->referido == "0")
         { 
-            
-            $desarrollador->desarrollador_id = 3;
-            $desarrollador->usuario_id = 4;
+            //se asigna a un desarrollador merkas
+            $usuario_default = $this->usuariosRepository->find_by_usuario_codigo("q8i67yz865");
+
+            $this->aliadoService->create_24($usuario_default , $trade , $aliado = false , $efective , $credi);
 
         }else{
-
-            $usuario = $this->desarrolladoresRepository->findByCodeUsuario($trade->referido);
-            
+            //consulta el usuario desarrollador de ese codigo
+            $usuario = $this->usuariosRepository->find_by_usuario_codigo($trade->referido);
+            #$usuario = $this->desarrolladoresRepository->findByCodeUsuario($trade->referido);
+           
             if(!empty((array)$usuario))
-            {    
-                $desarrollador->desarrollador_id = $usuario->desarrollador_id;
-                $desarrollador->usuario_id = $usuario->usuario_id;
-            }else{
-                $desarrollador->desarrollador_id = 3;
+            {      
+                if($usuario->usuario_rol_principal =="ALIADO COMERCIAL")
+                { 
+                   $this->aliadoService->create_24($usuario , $trade , $aliado = true , $efective , $credi);
 
-                $desarrollador->usuario_id = 4;
-            }
+                }else if($usuario->usuario_rol_principal == "DESARROLLADOR SENIOR" || $usuario->usuario_codigo == "DESARROLLADOR MASTER")
+                {
+                    //enviar a crear todo por desarrollador
+                    $this->aliadoService->create_24($usuario , $trade , $aliado = false , $efective , $credi);
+
+                } 
+            } 
         }
-        
-        //crear usuario -> 
-        $usuario_created = $this->userService->createUser($trade , $desarrollador);        
-        //crear aliado merkas
-        $aliado = $this->aliadoService->create((array) $input , (object) $usuario_created);
-
    
 }
 

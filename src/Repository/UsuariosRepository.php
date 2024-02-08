@@ -82,6 +82,21 @@ final class UsuariosRepository
 
     }
 
+    public function find_by_mail($mail){
+
+        $query = "SELECT * FROM `usuarios` WHERE `usuario_correo` = :mail LIMIT 0,1";
+
+        $statement = $this->getDb()->prepare($query);
+
+        $statement->bindParam(':mail' , $mail);
+
+        $statement->execute();
+
+        $usuarios = $statement->fetchObject();
+
+        return $usuarios;
+    }
+
     public function getAll(): array
     {
         $query = 'SELECT * FROM `usuarios` ORDER BY `id`';

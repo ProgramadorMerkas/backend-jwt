@@ -231,7 +231,7 @@ final class UsuariosService
     }
 
     //createuser
-    public function createUser($data , $desarrollador):object
+    public function createUser($data , $usuario):object
     {
         //validar si existe el correo ya creado
         $email_exists = $this->usuariosRepository->findByMail((string) $data->mail);
@@ -243,7 +243,7 @@ final class UsuariosService
         $code = $this->generateCode->generate();
 
         $user->usuario_codigo = $code;
-        $user->usuario_id_padre = $desarrollador->usuario_id;
+        $user->usuario_id_padre = $usuario->usuario_id;
         $user->usuario_fecha_registro = date("Y-m-d");
         $user->usuario_rol_principal = "ALIADO COMERCIAL";
         $user->usuario_nombre_completo = $data->registeredName;
@@ -271,8 +271,9 @@ final class UsuariosService
         $user->usuario_latitud = null;
         $user->usuario_longitud = null;
         $user->usuario_ruta_img = " ";
+        $usuarioCreated =  $this->usuariosRepository->create($user);
         $this->mailSendService->sendMailNuevoAliadoMerkas($user);
-        return $usuarioCreated =  $this->usuariosRepository->create($user);
+        return $usuarioCreated;
 
     }
 }

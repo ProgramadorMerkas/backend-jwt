@@ -56,7 +56,7 @@ final class Aliados_merkasRepository
     {
         $query = 'SELECT * FROM `aliados_merkas` WHERE `usuario_id` = :usuario_id';
         $statement = $this->getDb()->prepare($query);
-        $statement->bindParam(':usuario_id', $aliausuario_id);
+        $statement->bindParam(':usuario_id', $usuario_id);
         $statement->execute();
         $aliados_merkas = $statement->fetchObject();
         if (! $aliados_merkas) {
