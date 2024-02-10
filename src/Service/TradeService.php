@@ -105,7 +105,7 @@ final class TradeService
                 { 
                    $this->aliadoService->create_24($usuario , $trade , $aliado = true , $efective , $credi);
 
-                }else if($usuario->usuario_rol_principal == "DESARROLLADOR SENIOR" || $usuario->usuario_codigo == "DESARROLLADOR MASTER")
+                }else if($usuario->usuario_rol_principal == "DESARROLLADOR SENIOR" || $usuario->usuario_rol_principal == "DESARROLLADOR MASTER")
                 {
                     //enviar a crear todo por desarrollador
                     $this->aliadoService->create_24($usuario , $trade , $aliado = false , $efective , $credi);
